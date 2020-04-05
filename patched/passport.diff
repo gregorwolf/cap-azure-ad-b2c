@@ -1,0 +1,26 @@
+53a54,72
+> const _azureAd = uaa => {
+>   const BearerStrategy = require('passport-azure-ad').BearerStrategy
+>   if (uaa && uaa.credentials) {
+>     return new BearerStrategy(uaa.credentials,
+>       function (token, done) {
+>           // Send user info using the second argument
+>           done(null, {}, token);
+>       }
+>     )
+>   }
+> 
+>   return new BearerStrategy(require('../../util/xsenv')('xsuaa', uaa),
+>     function (token, done) {
+>         // Send user info using the second argument
+>         done(null, {}, token);
+>     }
+>   )
+> }
+> 
+66a86,87
+>     case 'AzureAD':
+>       return _azureAd(Array.isArray(options.uaa) ? options.uaa[iterator.uaa++] : options.uaa)
+87a109,110
+>     case 'AzureAD':
+>       return Array.isArray(options.uaa) ? options.uaa.map(uaa => _azureAd(uaa)) : [_azureAd(options.uaa)]

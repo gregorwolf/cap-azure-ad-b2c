@@ -1,0 +1,55 @@
+{
+  "name": "cap-azure-ad-b2c",
+  "description": "Authenticate to a CAP service using Azure AD B2C",
+  "repository": "https://github.com/gregorwolf/cap-azure-ad-b2c",
+  "license": "MIT",
+  "version": "1.0.0",
+  "engines": {
+    "node": "^10"
+  },
+  "files": [
+    "db",
+    "srv"
+  ],
+  "dependencies": {
+    "@sap/cds": "^3.33.1",
+    "@sap/audit-logging": "^3.1.0",
+    "@sap/xsenv": "^2.2.0",
+    "@sap/xssec": "^2.2.5",
+    "express": "^4.17.1",
+    "passport-azure-ad": "latest",
+    "passport": "^0.4.1"
+  },
+  "devDependencies": {
+    "jsonwebtoken": "latest",
+    "sqlite3": "^4.1.1"
+  },
+  "scripts": {
+    "setup": "npm install && npm run build && npm run deploy && npm run patch && npm start",
+    "start": "export PORT=6420 && cds run",
+    "build": "cds build/all --clean",
+    "deploy": "cds deploy",
+    "patch": "patch node_modules/@sap/cds-services/lib/adapter/auth/serviceAuth.js patched/serviceAuth.diff && patch node_modules/@sap/cds-services/lib/adapter/auth/passport.js patched/passport.diff"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "my.db"
+        }
+      },
+      "uaa": {
+        "kind": "xsuaa"
+      }
+    },
+    "odata": {
+      "version": "v4"
+    },
+    "auth": {
+      "passport": {
+        "strategy": "AzureAD"
+      }
+    }
+  }
+}
