@@ -29,7 +29,7 @@
     "start": "export PORT=6420 && cds run",
     "build": "cds build/all --clean",
     "deploy": "cds deploy",
-    "patch": "patch node_modules/@sap/cds-services/lib/adapter/auth/serviceAuth.js patched/serviceAuth.diff && patch node_modules/@sap/cds-services/lib/adapter/auth/passport.js patched/passport.diff"
+    "patch": "patch node_modules/@sap/cds-services/lib/adapter/auth/passport.js patched/passport.diff"
   },
   "cds": {
     "requires": {
