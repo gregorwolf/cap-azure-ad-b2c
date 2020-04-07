@@ -1,4 +1,0 @@
-18c18
-<   if (req.authInfo.scopes.includes('openid')) {
----
->   if (req.authInfo.scopes.includes('openid') || ( req.authInfo.scp && req.authInfo.scp == 'demo.read')) {
