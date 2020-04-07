@@ -1,37 +1,36 @@
-
-54,82d53
-< const _azureAd = uaa => {
-<   const BearerStrategy = require('passport-azure-ad').BearerStrategy
-<   if (uaa && uaa.credentials) {
-<     return new BearerStrategy(uaa.credentials,
-<       (decodedToken, done) => {
-<           // Send user info using the second argument
-<           // add default scope
-<           if (!decodedToken.scopes) {
-<             decodedToken.scopes = ["openid"]
-<           }
-<           // rework scopes via extended attribute "b2cgroups"
-<           if (decodedToken.extension_b2cgroups) {
-<             decodedToken.scopes.push(...decodedToken.extension_b2cgroups)
-<           }
-<           done(null, {
-<             id: decodedToken.sub || decodedToken.oid
-<           }, decodedToken);
-<       }
-<     )
-<   }
-< 
-<   return new BearerStrategy(require('../../util/xsenv')('xsuaa', uaa),
-<     function (token, done) {
-<         // Send user info using the second argument
-<         done(null, {}, token);
-<     }
-<   )
-< }
-< 
-96,97d66
-<     case 'AzureAD':
-<       return _azureAd(Array.isArray(options.uaa) ? options.uaa[iterator.uaa++] : options.uaa)
-119,120d87
-<     case 'AzureAD':
-<       return Array.isArray(options.uaa) ? options.uaa.map(uaa => _azureAd(uaa)) : [_azureAd(options.uaa)]
+53a54,82
+> const _azureAd = uaa => {
+>   const BearerStrategy = require('passport-azure-ad').BearerStrategy
+>   if (uaa && uaa.credentials) {
+>     return new BearerStrategy(uaa.credentials,
+>       (decodedToken, done) => {
+>           // Send user info using the second argument
+>           // add default scope
+>           if (!decodedToken.scopes) {
+>             decodedToken.scopes = ["openid"]
+>           }
+>           // rework scopes via extended attribute "b2cgroups"
+>           if (decodedToken.extension_b2cgroups) {
+>             decodedToken.scopes.push(...decodedToken.extension_b2cgroups)
+>           }
+>           done(null, {
+>             id: decodedToken.sub || decodedToken.oid
+>           }, decodedToken);
+>       }
+>     )
+>   }
+> 
+>   return new BearerStrategy(require('../../util/xsenv')('xsuaa', uaa),
+>     function (token, done) {
+>         // Send user info using the second argument
+>         done(null, {}, token);
+>     }
+>   )
+> }
+> 
+66a96,97
+>     case 'AzureAD':
+>       return _azureAd(Array.isArray(options.uaa) ? options.uaa[iterator.uaa++] : options.uaa)
+87a119,120
+>     case 'AzureAD':
+>       return Array.isArray(options.uaa) ? options.uaa.map(uaa => _azureAd(uaa)) : [_azureAd(options.uaa)]
