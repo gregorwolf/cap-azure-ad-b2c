@@ -11,6 +11,7 @@
             "program": "${workspaceFolder}/.vscode/cds", "args": [ "run" ],
             "env": {
               "DEBUG":"*",
+              "PORT": "6420"
             },
             "skipFiles": [
                 "<node_internals>/**/*.js",
