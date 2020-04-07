@@ -2,7 +2,7 @@
 
 This example application demonstrates how to authenticate to a SAP Cloud Application Programming Model service using Azure AD B2C. The client UI is based on the example app [Single-Page Application built on MSAL.js with Azure AD B2C](https://github.com/Azure-Samples/active-directory-b2c-javascript-msal-singlepageapp).
 
-You want to give it a try please store the following content in the file *default-env.json* the root folder of this project. As this file might inlcude sensitive data it's not included in the git repository.
+You want to give it a try please store the following content in the file *default-env.json* the root folder of this project. The B2C tenant used here is the sample tenant provided by Microsoft which is used also for their examples. As this file might inlcude sensitive data it's not included in the git repository.
 
 ```json
 {
@@ -17,7 +17,7 @@ You want to give it a try please store the following content in the file *defaul
         "plan": "space",
         "credentials": {
           "identityMetadata": "https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/B2C_1_SUSI/v2.0/.well-known/openid-configuration/",
-          "clientID": "93733604-cc77-4a3c-a604-87084dd55348",
+          "clientID": "e760cab2-b9a1-4c0d-86fb-ff7084abd902",
           "policyName": "B2C_1_SUSI",
           "isB2C": true,
           "validateIssuer": false,
