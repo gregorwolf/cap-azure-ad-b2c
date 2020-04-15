@@ -19,11 +19,11 @@
     "@sap/xssec": "^2.2.5",
     "express": "^4.17.1",
     "passport": "^0.4.1",
-    "passport-azure-ad": "latest"
+    "passport-azure-ad": "latest",
+    "sqlite3": "^4.1.1"
   },
   "devDependencies": {
-    "jsonwebtoken": "latest",
-    "sqlite3": "^4.1.1"
+    "jsonwebtoken": "latest"
   },
   "scripts": {
     "setup": "npm install && npm run build:cds && npm start:local",
