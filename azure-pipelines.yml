@@ -15,7 +15,7 @@ variables:
   webAppName: 'cap-azure-ad-b2c'
   
   # Environment name
-  environmentName: ''
+  environmentName: 'AzureHosting'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
