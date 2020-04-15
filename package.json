@@ -25,9 +25,11 @@
     "sqlite3": "^4.1.1"
   },
   "scripts": {
-    "setup": "npm install && npm run build && npm run deploy && npm run patch && npm start",
-    "start": "export PORT=6420 && cds run",
-    "build": "cds build/all --clean",
+    "setup": "npm install && npm run build:cds && npm start:local",
+    "start:local": "export PORT=6420 && cds run",
+    "start": "cds run",
+    "build": " npm run build:cds && npm run deploy && npm run patch",
+    "build:cds": "cds build/all --clean",
     "deploy": "cds deploy",
     "patch": "patch node_modules/@sap/cds-services/lib/adapter/auth/passport.js patched/passport.diff"
   },

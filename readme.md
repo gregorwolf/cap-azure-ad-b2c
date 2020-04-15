@@ -41,5 +41,5 @@ npm run setup
 to install the dependencies, build, deploy, patch and start the app. It them will be reachable at http://localhost:6420/. The next time you want to start simply run:
 
 ```bash
-npm start
+npm start:local
 ```
