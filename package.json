@@ -12,13 +12,14 @@
     "srv"
   ],
   "dependencies": {
-    "@sap/cds": "^3.33.1",
     "@sap/audit-logging": "^3.1.0",
+    "@sap/cds": "^3.33.1",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.4.25",
     "@sap/xsenv": "^2.2.0",
     "@sap/xssec": "^2.2.5",
     "express": "^4.17.1",
-    "passport-azure-ad": "latest",
-    "passport": "^0.4.1"
+    "passport": "^0.4.1",
+    "passport-azure-ad": "latest"
   },
   "devDependencies": {
     "jsonwebtoken": "latest",
@@ -27,7 +28,7 @@
   "scripts": {
     "setup": "npm install && npm run build:cds && npm start:local",
     "start:local": "export PORT=6420 && cds run",
-    "start": "cds run",
+    "start": "node node_modules/@sap/cds/bin/cds.js run",
     "build": " npm run build:cds && npm run deploy && npm run patch",
     "build:cds": "cds build/all --clean",
     "deploy": "cds deploy",
