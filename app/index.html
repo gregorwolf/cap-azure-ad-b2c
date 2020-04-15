@@ -45,14 +45,14 @@
     // The current application coordinates were pre-registered in a B2C tenant.
     var appConfig = {
       b2cScopes: ["e760cab2-b9a1-4c0d-86fb-ff7084abd902"],
-      webApi: "http://localhost:6420/catalog/Books",
-      adminWebApi: "http://localhost:6420/admin-catalog/Books"
+      webApi: "/catalog/Books",
+      adminWebApi: "/admin-catalog/Books"
     };
   </script>
 
   <script>
     "use strict";
-
+    
     const clientId = "e760cab2-b9a1-4c0d-86fb-ff7084abd902"; //This is your client ID
     const authority =  "https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/b2c_1_susi"; //This is your tenant info
     // configuration to initialize msal
