@@ -26,7 +26,7 @@
     "jsonwebtoken": "latest"
   },
   "scripts": {
-    "setup": "npm install && npm run build:cds && npm start:local",
+    "setup": "npm install && npm run build && npm run start:local",
     "start:local": "export PORT=6420 && cds run",
     "start": "node node_modules/@sap/cds/bin/cds.js run",
     "build": " npm run build:cds && npm run deploy && npm run patch",
