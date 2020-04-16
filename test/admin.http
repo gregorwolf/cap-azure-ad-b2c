@@ -1,0 +1,18 @@
+### Read Books as Admin
+GET http://localhost:6420/admin-catalog/Books
+Authorization: Bearer <Your Token>
+
+### Create a new Books as Admin
+POST http://localhost:6420/admin-catalog/Books
+Authorization: Bearer <Your Token>
+Content-Type: application/json
+
+{
+  "ID": 20000,
+  "title": "20.000 Meilen unter dem Meer",
+  "stock": 20
+}
+
+### Delete a Books as Admin
+DELETE http://localhost:6420/admin-catalog/Books(20000)
+Authorization: Bearer <Your Token>

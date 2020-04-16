@@ -35,7 +35,8 @@
     <div id="label">Sign-in with Microsoft Azure AD B2C</div>
     <button id="auth" onclick="signIn()">Login</button>
     <button id="callApiButton" class="hidden" onclick="callApi()">Call Authenticated Web API</button>
-    <button id="callAdminApiButton" class="hidden" onclick="callAdminApi()">Call Admin Web API</button>
+    <button id="callAdminApiButton" class="hidden" onclick="callAdminApi()">Call Admin Web API for Read</button>
+    <button id="callAdminApiWriteButton" class="hidden" onclick="callAdminApiWrite()">Call Admin Web API for Write</button>
   </div>
 
   <pre class="response"></pre>
@@ -124,30 +125,44 @@
       // add the callAdminWebApi button
       const callAdminWebApi = document.getElementById('callAdminApiButton');
       callAdminWebApi.setAttribute('class', 'visible');
+      const callAdminWebApiWrite = document.getElementById('callAdminApiWriteButton');
+      callAdminWebApiWrite.setAttribute('class', 'visible');
     }
 
     // calls the resource API with the token
     function callApi() {
       getToken(tokenRequest).then(function(tokenResponse) {
-        callApiWithAccessToken(tokenResponse.accessToken, appConfig.webApi);
+        callApiWithAccessToken(tokenResponse.accessToken, appConfig.webApi, "GET");
       });
     }
 
     function callAdminApi() {
       getToken(tokenRequest).then(function(tokenResponse) {
-        callApiWithAccessToken(tokenResponse.accessToken, appConfig.adminWebApi);
+        callApiWithAccessToken(tokenResponse.accessToken, appConfig.adminWebApi, "GET");
+      });
+    }
+    function callAdminApiWrite() {
+      getToken(tokenRequest).then(function(tokenResponse) {
+        var data = {
+          "ID": 20000,
+          "title": "20.000 Meilen unter dem Meer",
+          "stock": 20
+        };
+        callApiWithAccessToken(tokenResponse.accessToken, appConfig.adminWebApi, "POST", JSON.stringify(data));
       });
     }
 
     // helper function to access the resource with the token
-    function callApiWithAccessToken(accessToken, url) {
+    function callApiWithAccessToken(accessToken, url, type, data) {
       // Call the Web API with the AccessToken
       $.ajax({
-        type: "GET",
+        type: type,
         url: url,
         headers: {
           'Authorization': 'Bearer ' + accessToken,
+          'Content-Type': 'application/json',
         },
+        data: data
       }).done(function (data) {
         logMessage("Web APi returned:\n" + JSON.stringify(data));
       })
