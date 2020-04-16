@@ -26,13 +26,14 @@
     "jsonwebtoken": "latest"
   },
   "scripts": {
-    "setup": "npm install && npm run build && npm run start:local",
+    "setup": "npm install && npm run build && npm run patch:app && npm run start:local",
     "start:local": "export PORT=6420 && cds run",
     "start": "node node_modules/@sap/cds/bin/cds.js run",
     "build": " npm run build:cds && npm run deploy && npm run patch",
     "build:cds": "cds build/all --clean",
     "deploy": "cds deploy",
-    "patch": "patch node_modules/@sap/cds-services/lib/adapter/auth/passport.js patched/passport.diff"
+    "patch": "patch node_modules/@sap/cds-services/lib/adapter/auth/passport.js patched/passport.diff",
+    "patch:app": "patch app/index.html patched/index.diff"
   },
   "cds": {
     "requires": {
