@@ -11,7 +11,7 @@
 >           }
 >           // rework scopes via extended attribute "b2cgroups"
 >           if (decodedToken.extension_b2cgroups) {
->             decodedToken.scopes.push(...decodedToken.extension_b2cgroups)
+>             decodedToken.scopes.push(...decodedToken.extension_b2cgroups.split(","))
 >           }
 >           done(null, {
 >             id: decodedToken.sub || decodedToken.oid
