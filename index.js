@@ -3,13 +3,16 @@
 const express = require("express");
 const cds = require("@sap/cds");
 const proxy = require("@sap/cds-odata-v2-adapter-proxy");
+const appInsights = require("applicationinsights");
 
 const host = "0.0.0.0";
 const port = process.env.PORT || 4004;
 
 (async () => {
+  const appInsights = require("applicationinsights");
+  appInsights.start();
+  
   const app = express();
-
 
   app.use("/", express.static("app/"))
 
