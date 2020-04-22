@@ -11,7 +11,7 @@ variables:
   azureSubscription: '3fb4fa76-a29b-43d5-9142-188515856863'
   
   # Web app name
-  webAppName: 'cap-azure-ad-b2c-win'
+  webAppName: 'cap-azure-ad-b2c'
   
   # Environment name
   environmentName: 'AzureHosting'
@@ -83,7 +83,7 @@ stages:
             displayName: 'Azure Web App Deploy: '
             inputs:
               azureSubscription: $(azureSubscription)
-              #appType: webAppLinux
+              appType: webAppLinux
               appName: $(webAppName)
               runtimeStack: 'NODE|12'
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
