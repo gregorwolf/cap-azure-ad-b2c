@@ -1,0 +1,44 @@
+ <mvc:View controllerName="de.linuxdozent.capazure.ui5.controller.MainView"
+  displayBlock="true"
+  xmlns="sap.m"
+  xmlns:form="sap.ui.layout.form"
+  xmlns:mvc="sap.ui.core.mvc">
+  <App id="idAppControl" >
+    <pages>
+      <Page title="{i18n>title}">
+        <headerContent>
+          <Button 
+            text="Login" 
+            visible="{= !${session>/idToken/sub} }"
+            press="signIn"/>
+          <Button 
+            text="Request Token" 
+            visible="{= !!${session>/idToken/sub} }"
+            press="requestAccessToken"/>
+          <Button 
+            text="Logout" 
+            visible="{= !!${session>/idToken/sub} }"
+            press="logout"/>
+        </headerContent>
+        <content>
+          <form:SimpleForm>
+            <Label text="Given Name" labelFor="given_name" visible="{= !!${session>/idToken/sub} }" />
+            <Input id="given_name" editable="false" visible="{= !!${session>/idToken/sub} }" value="{session>/idToken/given_name}"/>
+            <Label text="Access Token" labelFor="accessToken" visible="{= !!${session>/idToken/sub} }" />
+            <Input id="accessToken" editable="false" visible="{= !!${session>/idToken/sub} }" value="{session>/accessToken}"/>
+          </form:SimpleForm>
+          <List
+              headerText="{i18n>bookListTitle}"
+              class="sapUiResponsiveMargin"
+              width="auto"
+              items="{/Books}" >
+              <items>
+                <ObjectListItem
+                    title="{ID} - {title}"/>
+              </items>
+          </List>
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>

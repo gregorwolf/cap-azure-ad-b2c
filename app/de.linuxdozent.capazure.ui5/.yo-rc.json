@@ -1,0 +1,12 @@
+{
+  "generator-easy-ui5": {
+    "projectname": "ui5",
+    "namespace": "de.linuxdozent.capazure",
+    "platform": "Static webserver",
+    "viewtype": "XML",
+    "viewname": "MainView",
+    "ui5libs": "Content delivery network (OpenUI5)",
+    "newdir": true,
+    "namespaceURI": "de/linuxdozent/capazure"
+  }
+}
