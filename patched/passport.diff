@@ -1,4 +1,4 @@
-53a54,82
+52a53,81
 > const _azureAd = uaa => {
 >   const BearerStrategy = require('passport-azure-ad').BearerStrategy
 >   if (uaa && uaa.credentials) {
@@ -28,9 +28,9 @@
 >   )
 > }
 > 
-66a96,97
+67a97,98
 >     case 'AzureAD':
 >       return _azureAd(Array.isArray(options.uaa) ? options.uaa[iterator.uaa++] : options.uaa)
-87a119,120
+88a120,121
 >     case 'AzureAD':
 >       return Array.isArray(options.uaa) ? options.uaa.map(uaa => _azureAd(uaa)) : [_azureAd(options.uaa)]

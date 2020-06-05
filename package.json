@@ -13,15 +13,15 @@
   ],
   "dependencies": {
     "@sap/audit-logging": "^3.1.0",
-    "@sap/cds": "^3.33.1",
-    "@sap/cds-odata-v2-adapter-proxy": "^1.4.25",
+    "@sap/cds": "3.34.2",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.4.33",
     "@sap/xsenv": "^2.2.0",
-    "@sap/xssec": "^2.2.5",
-    "applicationinsights": "^1.7.4",
+    "@sap/xssec": "^3.0.3",
+    "applicationinsights": "^1.7.6",
     "express": "^4.17.1",
     "passport": "^0.4.1",
     "passport-azure-ad": "latest",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.2.0"
   },
   "devDependencies": {
     "jsonwebtoken": "latest"
@@ -33,7 +33,8 @@
     "build": " npm run build:cds && npm run deploy && npm run patch",
     "build:cds": "cds build/all --clean",
     "deploy": "cds deploy",
-    "patch": "patch node_modules/@sap/cds-services/lib/adapter/auth/passport.js patched/passport.diff",
+    "diff:passport": "diff patched/passport-original.js patched/passport-update.js > patched/passport.diff",
+    "patch": "patch node_modules/@sap/cds-runtime/lib/cds-services/adapter/auth/passport.js patched/passport.diff",
     "patch:app": "patch app/index.html patched/index.diff"
   },
   "cds": {
