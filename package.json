@@ -35,7 +35,7 @@
     "deploy": "cds deploy",
     "diff:passport": "diff patched/passport-original.js patched/passport-update.js > patched/passport.diff",
     "patch": "patch node_modules/@sap/cds-runtime/lib/cds-services/adapter/auth/passport.js patched/passport.diff",
-    "patch:app": "patch app/index.html patched/index.diff"
+    "patch:app": "patch app/jquery/index.html patched/index.diff"
   },
   "cds": {
     "requires": {
