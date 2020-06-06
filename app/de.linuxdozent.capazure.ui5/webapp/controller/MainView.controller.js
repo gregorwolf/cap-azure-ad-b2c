@@ -1,6 +1,7 @@
 sap.ui.define([
-  "de/linuxdozent/capazure/ui5/controller/BaseController"
-], function(Controller) {
+  "de/linuxdozent/capazure/ui5/controller/BaseController",
+  "sap/ui/model/odata/v2/ODataModel"
+], function(Controller, ODataModel) {
   "use strict";
   const clientId = "ac6f2c18-a2c6-4b5f-9148-13abaaf8e5aa"; //This is your client ID
   const authority = "https://cswb2b.b2clogin.com/cswb2b.onmicrosoft.com/B2C_1_SignUpAndSignInV2"; //This is your tenant info
@@ -21,9 +22,11 @@ sap.ui.define([
         scopes: [clientId]
       }
     },
+
     onInit: function () {
       this.myMSALObj = new Msal.UserAgentApplication(this.config.msalConfig);
     },
+
     signIn: function() {
       this.myMSALObj.loginPopup(this.config.scopeConfig).then(function (loginResponse) {
           this.getToken(this.config.scopeConfig).then(this.updateUi().bind(this));
@@ -47,6 +50,21 @@ sap.ui.define([
     updateUi: function() {
       var data = this.myMSALObj.getAccount();
       this.getView().getModel("session").setData(data);
+      this.getToken(this.config.scopeConfig).then(function (tokenResponse) {
+        var uri = this.getOwnerComponent().getManifestEntry("/sap.app/dataSources/catalog/uri");
+        var mParameters = {
+          headers: {
+            "Authorization": "Bearer " + tokenResponse.accessToken
+          },
+          useBatch: false
+        };
+        this.oModel = new ODataModel(uri, mParameters);
+        this.oModel.metadataLoaded().then(this._onMetadataLoaded.bind(this));
+      }.bind(this));
+    },
+
+    _onMetadataLoaded: function() {
+      this.getView().setModel(this.oModel, "catalog");
     },
 
     requestAccessToken: function(oEvent) {
@@ -54,7 +72,7 @@ sap.ui.define([
         this.getView().byId("accessToken").setValue(tokenResponse.accessToken);
       }.bind(this));
     },
-    // signout the user
+
     logout: function(oEvent) {
       var oSessionModel = oEvent.getSource().getModel("session");
       var bIsLoggedIn = oSessionModel.getProperty("/idToken/sub");

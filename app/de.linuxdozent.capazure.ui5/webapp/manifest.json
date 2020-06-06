@@ -10,8 +10,15 @@
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
     "dataSources": {
-      "http://localhost:6420/v2/public-catalog/": {
+      "publicCatalog": {
         "uri": "/v2/public-catalog",
+        "type": "OData",
+        "settings": {
+          "localUri": "localService/public-catalog/metadata.xml"
+        }
+      },
+      "catalog": {
+        "uri": "/v2/catalog",
         "type": "OData",
         "settings": {
           "localUri": "localService/public-catalog/metadata.xml"
@@ -61,15 +68,25 @@
           "bundleName": "de.linuxdozent.capazure.ui5.i18n.i18n"
         }
       },
-      "": {
+      "publicCatalog": {
         "type": "sap.ui.model.odata.v2.ODataModel",
         "settings": {
           "defaultOperationMode": "Server",
           "defaultBindingMode": "TwoWay",
           "defaultCountMode": "Inline",
-          "preload": true
+          "preload": false
         },
-        "dataSource": "http://localhost:6420/v2/public-catalog/"
+        "dataSource": "publicCatalog"
+      },
+      "catalog": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "preload": false
+        },
+        "dataSource": "catalog"
       },
       "session": {
         "type": "sap.ui.model.json.JSONModel",

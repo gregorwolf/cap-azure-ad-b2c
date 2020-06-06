@@ -28,13 +28,26 @@
             <Input id="accessToken" editable="false" visible="{= !!${session>/idToken/sub} }" value="{session>/accessToken}"/>
           </form:SimpleForm>
           <List
-              headerText="{i18n>bookListTitle}"
+              id="publicBookList"
+              headerText="{i18n>bookPublicListTitle}"
               class="sapUiResponsiveMargin"
               width="auto"
-              items="{/Books}" >
+              items="{publicCatalog>/Books}" >
               <items>
                 <ObjectListItem
-                    title="{ID} - {title}"/>
+                    title="{publicCatalog>ID} - {publicCatalog>title}"/>
+              </items>
+          </List>
+          <List
+              id="bookList"
+              headerText="{i18n>bookAuthenticatedListTitle}"
+              visible="{= !!${session>/idToken/sub} }"
+              class="sapUiResponsiveMargin"
+              width="auto"
+              items="{catalog>/Books}" >
+              <items>
+                <ObjectListItem
+                    title="{catalog>ID} - {catalog>title}"/>
               </items>
           </List>
         </content>
