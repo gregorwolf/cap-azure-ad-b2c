@@ -12,30 +12,27 @@
     "srv"
   ],
   "dependencies": {
-    "@sap/audit-logging": "^3.1.0",
-    "@sap/cds": "3.34.2",
-    "@sap/cds-odata-v2-adapter-proxy": "^1.4.33",
-    "@sap/xsenv": "^2.2.0",
-    "@sap/xssec": "^3.0.3",
-    "applicationinsights": "^1.7.6",
+    "@sap/audit-logging": "^3.2.0",
+    "@sap/cds": "4.1.9",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.4.44",
+    "@sap/xsenv": "^3.0.0",
+    "@sap/xssec": "^3.0.9",
+    "applicationinsights": "^1.8.7",
     "express": "^4.17.1",
     "passport": "^0.4.1",
     "passport-azure-ad": "latest",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^5.0.0"
   },
   "devDependencies": {
     "jsonwebtoken": "latest"
   },
   "scripts": {
-    "setup": "npm install && npm run build && npm run patch:app && npm run start:local",
+    "setup": "npm install && npm run build && npm run start:local",
     "start:local": "export PORT=6420 && cds run",
     "start": "node node_modules/@sap/cds/bin/cds.js run",
-    "build": " npm run build:cds && npm run deploy && npm run patch",
+    "build": " npm run build:cds && npm run deploy",
     "build:cds": "cds build/all --clean",
-    "deploy": "cds deploy",
-    "diff:passport": "diff patched/passport-original.js patched/passport-update.js > patched/passport.diff",
-    "patch": "patch node_modules/@sap/cds-runtime/lib/cds-services/adapter/auth/passport.js patched/passport.diff",
-    "patch:app": "patch app/jquery/index.html patched/index.diff"
+    "deploy": "cds deploy"
   },
   "cds": {
     "requires": {
@@ -47,15 +44,13 @@
       },
       "uaa": {
         "kind": "xsuaa"
+      },
+      "auth": {
+        "impl": "srv/auth.js"
       }
     },
     "odata": {
       "version": "v4"
-    },
-    "auth": {
-      "passport": {
-        "strategy": "AzureAD"
-      }
     }
   }
 }

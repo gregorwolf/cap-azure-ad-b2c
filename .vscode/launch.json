@@ -5,9 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "cds run",
             "type": "node",
             "request": "launch",
+            "name": "cds run",
             "program": "${workspaceFolder}/.vscode/cds", "args": [ "run" ],
             "env": {
               "DEBUG":"*",
@@ -18,9 +18,7 @@
                 "**/cds-reflect/lib/index.js",
                 "**/cds/lib/index.js",
                 "**/.vscode/cds.js",
-            ],
-            "autoAttachChildProcesses": true,
-            "console": "integratedTerminal"
+            ]
         }
     ]
 }
