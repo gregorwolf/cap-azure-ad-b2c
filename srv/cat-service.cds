@@ -12,7 +12,7 @@ service CatalogService @(requires : 'authenticated-user') {
 
 service AdminCatalogService @(requires : 'authenticated-user') {
     entity Books @(restrict : [{
-        grant : ['READ'],
+        grant : ['READ','CREATE','UPDATE','DELETE'],
         to    : 'admin'
     }]) as projection on my.Books;
 }
