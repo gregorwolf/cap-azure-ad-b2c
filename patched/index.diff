@@ -1,6 +1,0 @@
-46,47c46,47
-<     const clientId = "#{clientId}#"; //This is your client ID
-<     const authority = "#{authority}#"; //This is your tenant info
----
->     const clientId = "e760cab2-b9a1-4c0d-86fb-ff7084abd902"; //This is your client ID
->     const authority = "https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/b2c_1_susi"; //This is your tenant info

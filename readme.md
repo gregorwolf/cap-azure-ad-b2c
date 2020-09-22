@@ -20,9 +20,9 @@ You want to give it a try please store the following content in the file *defaul
           "clientID": "e760cab2-b9a1-4c0d-86fb-ff7084abd902",
           "policyName": "B2C_1_SUSI",
           "isB2C": true,
-          "validateIssuer": false,
-          "loggingLevel": "info",
-          "loggingNoPII": false,
+          "validateIssuer": true,
+          "loggingLevel": "warn",
+          "loggingNoPII": true,
           "passReqToCallback": false
         }
       }
@@ -32,13 +32,15 @@ You want to give it a try please store the following content in the file *defaul
 }
 ```
 
-Make sure that you have the patch command available on your machine. Then you can run:
+The configuration in app/index.html matches this settings.
+
+For the first start you can run:
 
 ```bash
 npm run setup
 ```
 
-to install the dependencies, build, deploy, patch and start the app. It them will be reachable at http://localhost:6420/. The next time you want to start simply run:
+to install the dependencies, build, deploy and start the app. It them will be reachable at http://localhost:6420/. The next time you want to start simply run:
 
 ```bash
 npm run start:local

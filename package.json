@@ -28,7 +28,7 @@
   },
   "scripts": {
     "setup": "npm install && npm run build && npm run start:local",
-    "start:local": "export PORT=6420 && cds run",
+    "start:local": "PORT=6420 cds run",
     "start": "node node_modules/@sap/cds/bin/cds.js run",
     "build": " npm run build:cds && npm run deploy",
     "build:cds": "cds build/all --clean",
