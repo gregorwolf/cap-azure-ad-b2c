@@ -25,6 +25,10 @@ module.exports = (req, res, next) => {
     })
   );
   passport.authenticate("oauth-bearer", function (err, user, token) {
+    var capUser = {
+      id: "",
+      _roles: []
+    }
     if (err) {
       DEBUG && DEBUG ("err");
       DEBUG && DEBUG (err);
@@ -32,11 +36,11 @@ module.exports = (req, res, next) => {
     }
     if (!user) {
       DEBUG && DEBUG ("No user");
-      return next();
+      next()
     }
     DEBUG && DEBUG ("token");
     DEBUG && DEBUG (token);
-    var capUser = {
+    capUser = {
       id: user,
       _roles: ["authenticated-user"]
     }
