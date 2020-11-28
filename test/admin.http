@@ -1,3 +1,6 @@
+### Read Books Admin Entities
+GET http://localhost:6420/admin-catalog/
+
 ### Read Books as Admin
 GET http://localhost:6420/admin-catalog/Books
 Authorization: Bearer {{$dotenv token}}

@@ -17,3 +17,11 @@ server:
       configuration:
         port: 35729
         path: webapp
+    # proxy to odata service
+    - name: ui5-middleware-http-proxy
+      mountPath: /v2
+      beforeMiddleware: compression
+      configuration:
+        baseUrl: http://localhost:6420
+        path: /v2
+        secure: false

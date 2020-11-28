@@ -50,6 +50,8 @@
                     title="{catalog>ID} - {catalog>title}"/>
               </items>
           </List>
+          <!--
+          -->
         </content>
       </Page>
     </pages>
