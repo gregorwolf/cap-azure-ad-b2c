@@ -167,7 +167,7 @@
         logMessage("Web APi returned:\n" + JSON.stringify(data));
       })
         .fail(function (jqXHR, textStatus) {
-          logMessage("Error calling the Web api:\n" + textStatus);
+          logMessage("Error calling the Web api:\n" + jqXHR.responseText);
         })
     }
 
