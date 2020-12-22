@@ -1,10 +1,18 @@
-const cds = require("@sap/cds");
+const cds = require("@sap/cds")
+const chalk = require('chalk');
 const DEBUG = cds.debug("cds-azure-ad")
-const xsenv = require("@sap/xsenv");
-var passport = require("passport");
-xsenv.loadEnv();
-const services = xsenv.getServices({ xsuaa: { tags: "xsuaa" } });
-const BearerStrategy = require("passport-azure-ad").BearerStrategy;
+const xsenv = require("@sap/xsenv")
+var passport = require("passport")
+xsenv.loadEnv()
+var services = {}
+try {
+  services = xsenv.getServices({ xsuaa: { tag: "xsuaa" } })
+} catch (error) {
+  console.error(chalk.red("[cds-azure-ad] - " + error.message))
+  console.error("[cds-azure-ad] - maintain default-env.json or provide the environment variable VCAP_SERVICES")
+  throw new Error(error.message)
+}
+const BearerStrategy = require("passport-azure-ad").BearerStrategy
 
 const AzureADB2CUser = class extends cds.User {
   is (role) { 
@@ -30,24 +38,24 @@ module.exports = (req, res, next) => {
       _roles: []
     }
     if (err) {
-      DEBUG && DEBUG ("err");
-      DEBUG && DEBUG (err);
-      return next(err);
+      DEBUG && DEBUG ("err")
+      DEBUG && DEBUG (err)
+      return next(err)
     }
     if (!user) {
-      DEBUG && DEBUG ("No user");
+      DEBUG && DEBUG ("No user")
       next()
     }
-    DEBUG && DEBUG ("token");
-    DEBUG && DEBUG (token);
+    DEBUG && DEBUG ("token")
+    DEBUG && DEBUG (token)
     capUser = {
       id: user,
       _roles: ["authenticated-user"]
     }
     if(token.extension_b2cgroups) {
-      capUser._roles.push(...token.extension_b2cgroups.split(","));
+      capUser._roles.push(...token.extension_b2cgroups.split(","))
     }
-    req.user = new AzureADB2CUser(capUser);
+    req.user = new AzureADB2CUser(capUser)
     next()
   })(req, res, next);
 };
