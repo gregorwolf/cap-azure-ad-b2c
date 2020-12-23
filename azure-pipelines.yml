@@ -51,7 +51,7 @@ stages:
       displayName: 'Replace tokens'
       inputs:
         targetFiles: |
-          app/**/*.js
+          app/config.tokenized.js => app/config.js
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
