@@ -47,7 +47,7 @@
         "kind": "xsuaa"
       },
       "auth": {
-        "impl": "srv/auth.js"
+        "impl": "./srv/auth.js"
       }
     },
     "odata": {
