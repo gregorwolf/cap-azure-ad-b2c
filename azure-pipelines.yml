@@ -37,9 +37,14 @@ stages:
       displayName: 'Install Node.js'
 
     - script: |
-        echo $(authority)
-        echo $(clientId)
+        echo $AZURE_AD_CLIENT_ID
+        echo $AZURE_AD_AUTHORITY
       displayName: 'Test variables output'
+
+    - script: |
+        rm -rf .git
+        rm -rf .vscode
+      displayName: 'Cleanup folder'
 
     - script: |
         npm install
@@ -51,7 +56,7 @@ stages:
       displayName: 'Replace tokens'
       inputs:
         targetFiles: |
-          app/config.tokenized.js => app/config.js
+          app/config.tokenized.js => config.js
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
