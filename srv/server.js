@@ -6,7 +6,9 @@ const cors = require('cors')
 const proxy = require('@sap/cds-odata-v2-adapter-proxy')
 
 cds.on('bootstrap', (app) => {
-  app.use(helmet())
+  app.use(helmet({
+    contentSecurityPolicy: false
+  }))
   app.use(cors())
   app.use(proxy())
 })
