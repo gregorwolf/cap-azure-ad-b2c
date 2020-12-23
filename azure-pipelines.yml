@@ -51,7 +51,7 @@ stages:
       displayName: 'Replace tokens'
       inputs:
         targetFiles: |
-          **/*.html
+          app/**/*.js
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
@@ -62,7 +62,7 @@ stages:
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
 
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
 - stage: Deploy

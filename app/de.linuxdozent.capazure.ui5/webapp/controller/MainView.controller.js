@@ -7,8 +7,8 @@ sap.ui.define([
   const clientId = "e760cab2-b9a1-4c0d-86fb-ff7084abd902"; //This is your client ID
   const authority = "https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/b2c_1_susi"; //This is your tenant info
   */
-  const clientId = "ac6f2c18-a2c6-4b5f-9148-13abaaf8e5aa"; //This is your client ID
-  const authority = "https://cswb2b.b2clogin.com/cswb2b.onmicrosoft.com/B2C_1_SignUpAndSignInV2"; //This is your tenant info
+  const clientId = azureADconfig.clientId
+  const authority = azureADconfig.authority
   return Controller.extend("de.linuxdozent.capazure.ui5.controller.MainView", {
     config: {
       msalConfig: {
