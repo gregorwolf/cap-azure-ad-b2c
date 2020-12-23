@@ -27,7 +27,8 @@
   },
   "devDependencies": {
     "jsonwebtoken": "latest",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "@sap/cds-dk": "^3.2.0"
   },
   "scripts": {
     "setup": "npm install && npm run build && npm run start:local",
