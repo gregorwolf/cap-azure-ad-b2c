@@ -1,0 +1,145 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cap-azure-ad-b2c
+  labels:
+    app: cap-azure-ad-b2c
+spec:
+  ports:
+    - name: http
+      port: 4004
+  selector:
+    app: cap-azure-ad-b2c
+    tier: frontend
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  labels:
+    app: cap-azure-ad-b2c
+  name: cap-azure-ad-b2c
+spec:
+  service:
+    host: cap-azure-ad-b2c
+    name: cap-azure-ad-b2c
+    port: 4004
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - path: /
+      methods: ["GET", "HEAD" ]
+      accessStrategies:
+        - handler: allow
+      mutators: []
+    - path: /config.js
+      methods: ["GET", "HEAD" ]
+      accessStrategies:
+        - handler: allow
+      mutators: []
+    - path: /de.linuxdozent.capazure.ui5/.*
+      methods: ["GET", "HEAD" ]
+      accessStrategies:
+        - handler: allow
+      mutators: []
+    - path: /v2/public-catalog/.*
+      methods: ["GET", "HEAD" ]
+      accessStrategies:
+        - handler: allow
+      mutators: []
+    - path: /v2/catalog/.*
+      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE" ]
+      mutators: []
+      accessStrategies:
+        - handler: jwt
+          config:
+            trusted_issuers:
+              - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/v2.0/
+            jwks_urls:
+              - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/B2C_1_SignUpAndSignInV2/discovery/v2.0/keys
+    - path: /v2/catalog/$metadata
+      methods: ["GET", "HEAD" ]
+      accessStrategies:
+        - handler: allow
+      mutators: []
+    - path: /catalog/.*
+      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE" ]
+      mutators: []
+      accessStrategies:
+        - handler: jwt
+          config:
+            trusted_issuers:
+              - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/v2.0/
+            jwks_urls:
+              - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/B2C_1_SignUpAndSignInV2/discovery/v2.0/keys
+    - path: /admin-catalog/.*
+      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE" ]
+      mutators: []
+      accessStrategies:
+        - handler: jwt
+          config:
+            trusted_issuers:
+              - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/v2.0/
+            jwks_urls:
+              - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/B2C_1_SignUpAndSignInV2/discovery/v2.0/keys
+---
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: cap-azure-ad-b2c-xsuaa-secret
+    type: opaque
+    stringData:
+      VCAP_SERVICES: >
+        {
+          "xsuaa": [
+            {
+              "name": "cap-azure-ad-b2c-csw",
+              "label": "xsuaa",
+              "tags": [
+                "xsuaa"
+              ],
+              "plan": "space",
+              "credentials": {
+                "identityMetadata": "https://cswb2b.b2clogin.com/cswb2b.onmicrosoft.com/B2C_1_SignUpAndSignInV2/v2.0/.well-known/openid-configuration/",
+                "clientID": "ac6f2c18-a2c6-4b5f-9148-13abaaf8e5aa",
+                "policyName": "B2C_1_SignUpAndSignInV2",
+                "isB2C": true,
+                "validateIssuer": true,
+                "loggingLevel": "warn",
+                "loggingNoPII": true,
+                "passReqToCallback": false
+              }
+            }
+          ]
+        }
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: cap-azure-ad-b2c
+  labels:
+    app: cap-azure-ad-b2c
+spec:
+  selector:
+    matchLabels:
+      app: cap-azure-ad-b2c
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: cap-azure-ad-b2c
+        tier: frontend
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - image: gregorwolf/cap-azure-ad-b2c:latest
+        name: cap-azure-ad-b2c
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 4004
+          name: http
+        envFrom:
+        - secretRef:
+            name: cap-azure-ad-b2c-xsuaa-secret

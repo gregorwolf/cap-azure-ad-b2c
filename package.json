@@ -40,6 +40,7 @@
     "build:cds": "cds build/all --clean",
     "build:docker": "run-s build build:docker:image",
     "build:docker:image": "docker build -t gregorwolf/cap-azure-ad-b2c:latest .",
+    "push:docker": "docker push gregorwolf/cap-azure-ad-b2c:latest",
     "deploy": "cds deploy"
   },
   "cds": {
