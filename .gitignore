@@ -11,5 +11,4 @@ connection.properties
 *.orig
 _out
 default-*.json
-package-lock.json
 .env
