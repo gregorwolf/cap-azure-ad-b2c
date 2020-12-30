@@ -1,6 +1,12 @@
 FROM ubuntu:20.04
 
-RUN apt-get update && apt-get upgrade -y && apt-get --no-install-recommends -y install nodejs npm && nodejs -v && npm -v
+RUN apt-get update \
+  && apt-get upgrade -y \
+  && apt-get --no-install-recommends -y install nodejs npm \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && nodejs -v \
+  && npm -v
 WORKDIR /usr/src/app
 COPY package.json .
 COPY package-lock.json .
