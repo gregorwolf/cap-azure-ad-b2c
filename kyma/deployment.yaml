@@ -85,17 +85,17 @@ spec:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: cap-azure-ad-b2c-xsuaa-secret
+      name: cap-azure-ad-b2c-secret
     type: opaque
     stringData:
       VCAP_SERVICES: >
         {
-          "xsuaa": [
+          "azure-ad": [
             {
               "name": "cap-azure-ad-b2c-csw",
-              "label": "xsuaa",
+              "label": "azure-ad",
               "tags": [
-                "xsuaa"
+                "azure-ad"
               ],
               "plan": "space",
               "credentials": {
@@ -142,4 +142,4 @@ spec:
           name: http
         envFrom:
         - secretRef:
-            name: cap-azure-ad-b2c-xsuaa-secret
+            name: cap-azure-ad-b2c-secret

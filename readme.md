@@ -61,3 +61,7 @@ To keep this project separate from your other deployments I would suggest to cre
 Deploy the configuration:
 
 `kubectl -n cap-azure-ad-b2c apply -f kyma/deployment.yaml`
+
+Update the container:
+
+`kubectl -n cap-azure-ad-b2c rollout restart deployment/cap-azure-ad-b2c`
