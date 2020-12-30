@@ -51,6 +51,28 @@
           "database": "my.db"
         }
       },
+      "biscuit": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "biscuit",
+          "requestTimeout": 30000
+        },
+        "pool": {
+          "min": 1,
+          "max": 10
+        }
+      },
+      "S4H": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "S4H",
+          "requestTimeout": 30000
+        },
+        "pool": {
+          "min": 1,
+          "max": 10
+        }
+      },
       "uaa": {
         "kind": "xsuaa"
       },

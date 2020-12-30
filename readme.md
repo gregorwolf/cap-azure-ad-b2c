@@ -10,9 +10,9 @@ You want to give it a try please store the following content in the file *defaul
     "xsuaa": [
       {
         "name": "cap-azure-ad-b2c-uaa",
-        "label": "xsuaa",
+        "label": "azure-ad",
         "tags": [
-          "xsuaa"
+          "azure-ad"
         ],
         "plan": "space",
         "credentials": {

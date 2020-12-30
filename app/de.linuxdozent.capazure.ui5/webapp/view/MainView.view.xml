@@ -16,6 +16,10 @@
             visible="{= !!${session>/idToken/sub} }"
             press="requestAccessToken"/>
           <Button 
+            text="Get SAP Logon Ticket" 
+            visible="{= !!${session>/idToken/sub} }"
+            press="requestSAPLogonTicket"/>
+          <Button 
             text="Logout" 
             visible="{= !!${session>/idToken/sub} }"
             press="logout"/>

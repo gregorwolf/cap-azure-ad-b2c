@@ -77,6 +77,10 @@ sap.ui.define([
       }.bind(this));
     },
 
+    requestSAPLogonTicket: function(oEvent) {
+      console.log(oEvent);
+    },
+
     logout: function(oEvent) {
       var oSessionModel = oEvent.getSource().getModel("session");
       var bIsLoggedIn = oSessionModel.getProperty("/idToken/sub");

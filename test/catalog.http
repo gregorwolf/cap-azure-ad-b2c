@@ -1,0 +1,13 @@
+### Read Books Authenticated User Entities
+GET http://localhost:6420/catalog/
+
+### Read Books as Authenticated User
+GET http://localhost:6420/catalog/
+Authorization: Bearer {{$dotenv token}}
+
+### Read SAP Logon Ticket
+POST http://localhost:6420/catalog/readSAPLogonTicket
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+{}

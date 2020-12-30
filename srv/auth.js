@@ -6,7 +6,7 @@ var passport = require("passport")
 xsenv.loadEnv()
 var services = {}
 try {
-  services = xsenv.getServices({ xsuaa: { tag: "xsuaa" } })
+  services = xsenv.getServices({ azuread: { tag: "azure-ad" } })
 } catch (error) {
   console.error(chalk.red("[cds-azure-ad] - " + error.message))
   console.error("[cds-azure-ad] - maintain default-env.json or provide the environment variable VCAP_SERVICES")
@@ -22,7 +22,7 @@ const AzureADB2CUser = class extends cds.User {
 };
 
 module.exports = (req, res, next) => {
-  const options = services.xsuaa;
+  const options = services.azuread;
   passport.initialize();
   passport.use(
     new BearerStrategy(options, function (token, done) {
@@ -44,7 +44,7 @@ module.exports = (req, res, next) => {
     }
     if (!user) {
       DEBUG && DEBUG ("No user")
-      next()
+      return next(Error(token))
     }
     DEBUG && DEBUG ("token")
     DEBUG && DEBUG (token)
