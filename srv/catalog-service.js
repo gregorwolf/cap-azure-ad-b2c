@@ -8,7 +8,7 @@ module.exports = async function (srv){
     // Error: Field jku containing the URL for JWT verification not part of header.
     // at getVerificationKeyURL (/Users/gwolf/Documents/Projects/azure/cap-azure-ad-b2c/node_modules/@sap-cloud-sdk/core/dist/connectivity/scp-cf/jwt.js:353:15)
     try {
-      const response = await biscuitService.get('/sap/bc/biscuit?user=GWOLF-CSW')
+      const response = await biscuitService.get('/sap/bc/zbiscuit?user=GWOLF')
       return response
     } catch (error) {
       console.error("Error Message: " + error.message)

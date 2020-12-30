@@ -6,8 +6,22 @@ GET http://localhost:6420/catalog/
 Authorization: Bearer {{$dotenv token}}
 
 ### Read SAP Logon Ticket
+# @name readSAPLogonTicket
 POST http://localhost:6420/catalog/readSAPLogonTicket
 Authorization: Bearer {{$dotenv token}}
 Content-Type: application/json
 
 {}
+### Read Token to Variable
+@ticket={{readSAPLogonTicket.response.body.value}}
+
+###
+GET {{$dotenv server}}/sap/public/ping
+
+###
+GET {{$dotenv server}}/sap/bc/zbiscuit
+cookie: MYSAPSSO2={{ticket}}
+
+###
+GET {{$dotenv server}}/sap/bc/zbiscuit
+cookie: MYSAPSSO2={{$dotenv ticket}}
