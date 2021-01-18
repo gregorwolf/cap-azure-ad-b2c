@@ -20,7 +20,7 @@
     "applicationinsights": "^1.8.8",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "helmet": "^4.3.1",
+    "helmet": "^4.4.0",
     "passport": "^0.4.1",
     "passport-azure-ad": "latest",
     "sqlite3": "^5.0.1"
