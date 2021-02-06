@@ -23,7 +23,8 @@
     "helmet": "^4.4.1",
     "passport": "^0.4.1",
     "passport-azure-ad": "latest",
-    "sqlite3": "^5.0.1"
+    "sqlite3": "^5.0.1",
+    "cds-azure-ad": "sapmentors/cds-azure-ad#main"
   },
   "devDependencies": {
     "jsonwebtoken": "latest",
@@ -77,7 +78,7 @@
         "kind": "xsuaa"
       },
       "auth": {
-        "impl": "./srv/auth.js"
+        "impl": "cds-azure-ad"
       }
     },
     "odata": {
