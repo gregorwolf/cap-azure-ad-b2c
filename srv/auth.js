@@ -1,8 +1,13 @@
+const DEBUG = cds.debug("cds-azure-ad")
+
+// Import Libraries
 const cds = require("@sap/cds")
 const chalk = require('chalk');
-const DEBUG = cds.debug("cds-azure-ad")
 const xsenv = require("@sap/xsenv")
-var passport = require("passport")
+const passport = require("passport")
+const BearerStrategy = require("passport-azure-ad").BearerStrategy
+
+// Read configuration from VCAP_SERVICES environment variable
 xsenv.loadEnv()
 var services = {}
 try {
@@ -12,7 +17,6 @@ try {
   console.error("[cds-azure-ad] - maintain default-env.json or provide the environment variable VCAP_SERVICES")
   throw new Error(error.message)
 }
-const BearerStrategy = require("passport-azure-ad").BearerStrategy
 
 const AzureADB2CUser = class extends cds.User {
   is (role) { 
