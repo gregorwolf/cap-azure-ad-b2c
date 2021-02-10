@@ -24,7 +24,7 @@
     "passport": "^0.4.1",
     "passport-azure-ad": "latest",
     "sqlite3": "^5.0.1",
-    "cds-azure-ad": "^0.0.3"
+    "cds-azure-ad": "^0.0.4"
   },
   "devDependencies": {
     "jsonwebtoken": "latest",
