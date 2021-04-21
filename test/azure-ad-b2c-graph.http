@@ -1,0 +1,40 @@
+### 
+# @name getAccessToken
+POST https://login.microsoftonline.com/{{$dotenv tenant}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{$dotenv client_id}}
+&scope=https://graph.microsoft.com/.default
+&client_secret={{$dotenv client_secret}}
+&grant_type=client_credentials
+
+### Read Token to Variable
+@access_token={{getAccessToken.response.body.access_token}}
+
+### All Users
+GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/
+Authorization: Bearer {{access_token}}
+
+###
+GET https://graph.microsoft.com/v1.0/users
+  ?$filter=otherMails/any(x:x eq '{{$dotenv mail}}')
+Authorization: Bearer {{access_token}}
+
+### All Users
+GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/
+  ?$filter=otherMails/any(x:x eq '{{$dotenv mail}}')
+  &$inlinecount=true
+Authorization: Bearer {{access_token}}
+
+### Specific user
+GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/{{$dotenv user}}
+Authorization: Bearer {{access_token}}
+
+### Update Specific user
+PATCH https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/{{$dotenv user}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "extension_{{$dotenv b2c-extensions-app}}_b2cgroups": "admin",
+}
