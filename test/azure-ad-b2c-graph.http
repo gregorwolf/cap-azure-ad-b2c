@@ -11,6 +11,15 @@ client_id={{$dotenv client_id}}
 ### Read Token to Variable
 @access_token={{getAccessToken.response.body.access_token}}
 
+###
+GET https://graph.microsoft.com/beta/$metadata
+Authorization: Bearer {{access_token}}
+
+###
+GET https://graph.microsoft.com/v1.0/$metadata
+  ?$filter=otherMails/any(x:x eq '{{$dotenv mail}}')
+Authorization: Bearer {{access_token}}
+
 ### All Users
 GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/
 Authorization: Bearer {{access_token}}
