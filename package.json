@@ -21,7 +21,7 @@
     "cds-azure-ad": "^0.0.12",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "helmet": "^4.5.0",
+    "helmet": "^4.6.0",
     "passport": "^0.4.1",
     "passport-azure-ad": "latest",
     "sqlite3": "5.0.2"
