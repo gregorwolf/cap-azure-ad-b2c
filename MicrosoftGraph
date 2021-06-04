@@ -1,0 +1,12 @@
+clientId=9e8b66e4-f0f4-4d76-b004-fb3c68a01f0c
+Description=Microsoft Graph
+Type=HTTP
+HTML5.DynamicDestination=true
+Authentication=OAuth2ClientCredentials
+Name=MicrosoftGraph
+WebIDEEnabled=true
+tokenServiceURL=https\://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token
+ProxyType=Internet
+URL=https\://graph.microsoft.com
+tokenServiceURLType=Dedicated
+scope=https\://graph.microsoft.com/.default
