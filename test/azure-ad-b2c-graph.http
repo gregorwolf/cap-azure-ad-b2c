@@ -25,6 +25,15 @@ GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/
 Authorization: Bearer {{access_token}}
 
 ###
+# @name singleUser
+GET https://graph.microsoft.com/v1.0/users
+  ?$filter=mail eq '{{$dotenv mail}}'
+Authorization: Bearer {{access_token}}
+
+### 
+@userid={{singleUser.response.body.value[0].id}}
+
+###
 GET https://graph.microsoft.com/v1.0/users
   ?$filter=otherMails/any(x:x eq '{{$dotenv mail}}')
 Authorization: Bearer {{access_token}}
@@ -34,6 +43,13 @@ GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/
   ?$filter=otherMails/any(x:x eq '{{$dotenv mail}}')
   &$inlinecount=true
 Authorization: Bearer {{access_token}}
+
+### All Users
+GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/
+  ?$filter=mail eq '{{$dotenv mail}}'
+  &$inlinecount=true
+Authorization: Bearer {{access_token}}
+
 
 ### Specific user
 GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/{{$dotenv user}}
@@ -46,4 +62,84 @@ Content-Type: application/json
 
 {
   "extension_{{$dotenv b2c-extensions-app}}_b2cgroups": "admin",
+}
+
+
+###
+GET https://graph.microsoft.com/beta/users/{{userid}}/chats
+Authorization: Bearer {{access_token}}
+
+@chatid=10
+###
+POST https://graph.microsoft.com/v1.0/chats/{{chatid}}/sendActivityNotification
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "topic": {
+        "source": "entityUrl",
+        "value": "https://graph.microsoft.com/v1.0/chats/{{chatid}}"
+    },
+    "activityType": "taskCreated",
+    "previewText": {
+        "content": "New Task Created"
+    },
+    "recipient": {
+        "@odata.type": "microsoft.graph.aadUserNotificationRecipient",
+        "userId": "{{userid}}"
+    },
+    "templateParameters": [
+        {
+            "name": "taskId",
+            "value": "Task 12322"
+        }
+    ] 
+}
+
+###
+POST https://graph.microsoft.com/beta/chats/{{chatid}}/sendActivityNotification
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "topic": {
+        "source": "entityUrl",
+        "value": "https://graph.microsoft.com/beta/chats/{{chatid}}"
+    },
+    "activityType": "taskCreated",
+    "previewText": {
+        "content": "New Task Created"
+    },
+    "recipient": {
+        "@odata.type": "microsoft.graph.aadUserNotificationRecipient",
+        "userId": "{{$dotenv mail}}"
+    },
+    "templateParameters": [
+        {
+            "name": "taskId",
+            "value": "Task 12322"
+        }
+    ] 
+}
+
+###
+POST https://graph.microsoft.com/beta/users/{{userid}}/teamwork/sendActivityNotification
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "topic": {
+        "source": "entityUrl",
+        "value": "https://graph.microsoft.com/beta/users/{{userid}}/teamwork/installedApps/{installationId}"
+    },
+    "activityType": "taskCreated",
+    "previewText": {
+        "content": "New Task Created"
+    },
+    "templateParameters": [
+        {
+            "name": "taskId",
+            "value": "Task 12322"
+        }
+    ]
 }
