@@ -12,22 +12,22 @@
     "srv"
   ],
   "dependencies": {
-    "@sap/audit-logging": "^5.0.0",
-    "@sap/cds": "^5.1.5",
-    "@sap/cds-odata-v2-adapter-proxy": "^1.7.6",
+    "@sap/audit-logging": "^5.1.0",
+    "@sap/cds": "^5.4.6",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.7.11",
     "@sap/xsenv": "^3.1.1",
-    "@sap/xssec": "^3.2.2",
-    "applicationinsights": "^2.1.5",
+    "@sap/xssec": "^3.2.7",
+    "applicationinsights": "^2.1.7",
     "cds-azure-ad": "^0.0.15",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
-    "passport": "^0.4.1",
+    "passport": "^0.5.0",
     "passport-azure-ad": "latest",
     "sqlite3": "5.0.2"
   },
   "devDependencies": {
-    "@sap/cds-dk": "^4.1.5",
+    "@sap/cds-dk": "^4.4.2",
     "cross-env": "^7.0.3",
     "jsonwebtoken": "latest",
     "npm-run-all": "^4.1.5"
