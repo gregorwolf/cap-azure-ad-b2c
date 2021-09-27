@@ -18,7 +18,7 @@
     "@sap/xsenv": "^3.1.1",
     "@sap/xssec": "^3.2.7",
     "applicationinsights": "^2.1.7",
-    "cds-azure-ad": "^0.0.15",
+    "cds-azure-ad": "^0.0.16",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
