@@ -24,7 +24,7 @@
     "helmet": "^5.0.2",
     "passport": "^0.5.2",
     "passport-azure-ad": "latest",
-    "sqlite3": "5.0.2"
+    "sqlite3": "5.0.10"
   },
   "devDependencies": {
     "@sap/cds-dk": "^4.8.2",
