@@ -21,7 +21,7 @@ GET https://graph.microsoft.com/v1.0/$metadata
 Authorization: Bearer {{access_token}}
 
 ### All Users
-GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users/
+GET https://graph.microsoft.com/beta/{{$dotenv tenant}}/users
 Authorization: Bearer {{access_token}}
 
 ###
