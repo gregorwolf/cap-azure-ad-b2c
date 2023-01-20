@@ -5,29 +5,29 @@
   "license": "MIT",
   "version": "1.0.0",
   "engines": {
-    "node": "14.X"
+    "node": "16.X"
   },
   "files": [
     "db",
     "srv"
   ],
   "dependencies": {
-    "@sap/audit-logging": "^5.5.4",
-    "@sap/cds": "^5.9.8",
-    "@sap/cds-odata-v2-adapter-proxy": "^1.9.4",
-    "@sap/xsenv": "^3.3.2",
-    "@sap/xssec": "^3.2.13",
-    "applicationinsights": "^2.3.4",
+    "@sap/audit-logging": "^5.6.3",
+    "@sap/cds": "^6.4.1",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.18",
+    "@sap/xsenv": "^3.4.0",
+    "@sap/xssec": "^3.2.17",
+    "applicationinsights": "^2.4.1",
     "cds-azure-ad": "^0.0.21",
     "cors": "^2.8.5",
-    "express": "^4.18.1",
-    "helmet": "^5.1.1",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
     "passport": "^0.6.0",
     "passport-azure-ad": "latest",
-    "sqlite3": "^5.0.11"
+    "sqlite3": "^5.1.4"
   },
   "devDependencies": {
-    "@sap/cds-dk": "^6.0.4",
+    "@sap/cds-dk": "^6.4.1",
     "cross-env": "^7.0.3",
     "jsonwebtoken": "latest",
     "npm-run-all": "^4.1.5"
