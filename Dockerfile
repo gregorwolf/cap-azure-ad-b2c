@@ -13,7 +13,7 @@ COPY package-lock.json .
 RUN npm ci
 COPY db db/
 COPY srv srv/
-COPY srv/gen/csn.json srv/
+COPY srv/gen/srv/csn.json srv/
 COPY app app/
 
 EXPOSE 4004
