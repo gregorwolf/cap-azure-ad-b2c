@@ -1,12 +1,12 @@
 ### Read Books Admin Entities
-GET http://localhost:6420/admin-catalog/
+GET http://localhost:6420/odata/v4/admin-catalog/
 
 ### Read Books as Admin
-GET http://localhost:6420/admin-catalog/Books
+GET http://localhost:6420/odata/v4/admin-catalog/Books
 Authorization: Bearer {{$dotenv token}}
 
 ### Create a new Books as Admin
-POST http://localhost:6420/admin-catalog/Books
+POST http://localhost:6420/odata/v4/admin-catalog/Books
 Authorization: Bearer {{$dotenv token}}
 Content-Type: application/json
 
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### Create a new Books as Admin
-PATCH http://localhost:6420/admin-catalog/Books(20000)
+PATCH http://localhost:6420/odata/v4/admin-catalog/Books(20000)
 Authorization: Bearer {{$dotenv token}}
 Content-Type: application/json
 
@@ -26,5 +26,5 @@ Content-Type: application/json
 }
 
 ### Delete a Books as Admin
-DELETE http://localhost:6420/admin-catalog/Books(20000)
+DELETE http://localhost:6420/odata/v4/admin-catalog/Books(20000)
 Authorization: Bearer {{$dotenv token}}

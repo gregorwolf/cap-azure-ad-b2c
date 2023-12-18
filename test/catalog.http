@@ -1,13 +1,18 @@
 ### Read Books Authenticated User Entities
-GET http://localhost:6420/catalog/
+GET http://localhost:6420/odata/v4/catalog/
 
-### Read Books as Authenticated User
-GET http://localhost:6420/catalog/
+### Read list of entities as Authenticated User
+GET http://localhost:6420/odata/v4/catalog/
 Authorization: Bearer {{$dotenv token}}
-
+### Read Books as Authenticated User
+GET http://localhost:6420/odata/v4/catalog/Books
+Authorization: Bearer {{$dotenv token}}
+### Read Books as Authenticated User
+GET http://localhost:6420/odata/v4/catalog/Products
+Authorization: Bearer {{$dotenv token}}
 ### Read SAP Logon Ticket
 # @name readSAPLogonTicket
-POST http://localhost:6420/catalog/readSAPLogonTicket
+POST http://localhost:6420/odata/v4/catalog/readSAPLogonTicket
 Authorization: Bearer {{$dotenv token}}
 Content-Type: application/json
 
