@@ -86,6 +86,10 @@
       },
       "auth": {
         "impl": "cds-azure-ad"
+      },
+      "SEPMRA_PROD_MAN": {
+        "kind": "odata-v2",
+        "model": "srv/external/SEPMRA_PROD_MAN"
       }
     },
     "odata": {
