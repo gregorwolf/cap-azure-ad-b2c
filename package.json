@@ -13,6 +13,7 @@
   ],
   "dependencies": {
     "@cap-js-community/odata-v2-adapter": "^1.11.12",
+    "@sap-cloud-sdk/http-client": "^3.9.0",
     "@sap-cloud-sdk/resilience": "^3.9.0",
     "@sap/audit-logging": "^5.8.2",
     "@sap/cds": "^7.5.0",
@@ -51,6 +52,11 @@
   "cds": {
     "cov2ap": {
       "plugin": true
+    },
+    "log": {
+      "levels": {
+        "catalog-service": "debug"
+      }
     },
     "requires": {
       "db": {

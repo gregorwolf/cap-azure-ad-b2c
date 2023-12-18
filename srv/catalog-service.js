@@ -1,9 +1,25 @@
+const cds = require("@sap/cds");
+const LOG = cds.log("catalog-service");
+
+function getAuthToken(req) {
+  const authHeader = req._.req.headers["authorization"];
+  const token = authHeader.substring(7);
+  return token;
+}
+
 module.exports = async function (srv) {
   const biscuitService = await cds.connect.to("biscuit");
   const productService = await cds.connect.to("SEPMRA_PROD_MAN");
 
   srv.on("READ", "Products", async (req) => {
+    const token = getAuthToken(req);
+    LOG.debug("Token: " + token);
     return productService.run(req.query);
+  });
+
+  srv.on("getOAuth2SAMLBearerAssertion", async (req) => {
+    const token = getAuthToken(req);
+    LOG.debug("Token: " + token);
   });
 
   srv.on("readSAPLogonTicket", async (req) => {

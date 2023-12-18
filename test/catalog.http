@@ -9,7 +9,15 @@ GET http://localhost:6420/odata/v4/catalog/Books
 Authorization: Bearer {{$dotenv token}}
 ### Read Books as Authenticated User
 GET http://localhost:6420/odata/v4/catalog/Products
+  ?$filter=IsActiveEntity eq true
+  &$top=10
 Authorization: Bearer {{$dotenv token}}
+###
+POST http://localhost:6420/odata/v4/catalog/getOAuth2SAMLBearerAssertion
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+{}
 ### Read SAP Logon Ticket
 # @name readSAPLogonTicket
 POST http://localhost:6420/odata/v4/catalog/readSAPLogonTicket
