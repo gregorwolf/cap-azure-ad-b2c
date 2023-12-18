@@ -89,7 +89,12 @@
       },
       "SEPMRA_PROD_MAN": {
         "kind": "odata-v2",
-        "model": "srv/external/SEPMRA_PROD_MAN"
+        "model": "srv/external/SEPMRA_PROD_MAN",
+        "credentials": {
+          "destination": "ES5",
+          "path": "/sap/opu/odata/sap/SEPMRA_PROD_MAN",
+          "requestTimeout": 30000
+        }
       }
     },
     "odata": {
