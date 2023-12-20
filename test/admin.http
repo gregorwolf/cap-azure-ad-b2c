@@ -1,6 +1,9 @@
+### Read Books Admin Metadata
+GET http://localhost:6420/odata/v4/admin-catalog/$metadata
+Authorization: Bearer {{$dotenv token}}
 ### Read Books Admin Entities
 GET http://localhost:6420/odata/v4/admin-catalog/
-
+Authorization: Bearer {{$dotenv token}}
 ### Read Books as Admin
 GET http://localhost:6420/odata/v4/admin-catalog/Books
 Authorization: Bearer {{$dotenv token}}
