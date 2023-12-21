@@ -115,4 +115,18 @@ function readMail() {
     });
 }
 
+function readBooks() {
+  getTokenPopup(tokenRequest)
+    .then((response) => {
+      callBookshop(
+        bookshopConfig.booksEndpoint,
+        response.accessToken,
+        updateUI
+      );
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 selectAccount();

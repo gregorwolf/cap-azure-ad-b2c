@@ -49,7 +49,7 @@ const msalConfig = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 const loginRequest = {
-  scopes: ["User.Read"],
+  scopes: ["api://19702d90-5fb8-4d76-a6c9-557f55c771e8/SAP.ReadWrite"],
 };
 
 /**
@@ -57,6 +57,6 @@ const loginRequest = {
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
  */
 const tokenRequest = {
-  scopes: ["User.Read", "Mail.Read"],
+  scopes: ["api://19702d90-5fb8-4d76-a6c9-557f55c771e8/SAP.ReadWrite"],
   forceRefresh: false, // Set this to "true" to skip a cached token and go to the server to get a new token
 };

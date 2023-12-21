@@ -68,8 +68,12 @@
             </button>
             <br />
             <br />
-            <button class="btn btn-primary" id="readMail" onclick="readMail()">
-              Read Mails
+            <button
+              class="btn btn-primary"
+              id="readBooks"
+              onclick="readBooks()"
+            >
+              Read Books
             </button>
           </div>
         </div>
@@ -106,11 +110,13 @@
     <!-- importing app scripts (load order is important) -->
     <script type="text/javascript" src="./authConfig.js"></script>
     <script type="text/javascript" src="./graphConfig.js"></script>
+    <script type="text/javascript" src="./bookshopConfig.js"></script>
     <script type="text/javascript" src="./ui.js"></script>
 
     <!-- <script type="text/javascript" src="./authRedirect.js"></script>   -->
     <!-- uncomment the above line and comment the line below if you would like to use the redirect flow -->
     <script type="text/javascript" src="./authPopup.js"></script>
     <script type="text/javascript" src="./graph.js"></script>
+    <script type="text/javascript" src="./bookshop.js"></script>
   </body>
 </html>
