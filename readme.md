@@ -2,7 +2,7 @@
 
 This example application demonstrates how to authenticate to a SAP Cloud Application Programming Model service using Azure AD B2C. The client UI is based on the example app [Single-Page Application built on MSAL.js with Azure AD B2C](https://github.com/Azure-Samples/active-directory-b2c-javascript-msal-singlepageapp).
 
-You want to give it a try please store the following content in the file *default-env.json* the root folder of this project. The B2C tenant used here is the sample tenant provided by Microsoft which is used also for their examples. As this file might inlcude sensitive data it's not included in the git repository.
+You want to give it a try please store the following content in the file *default-env.json* the root folder of this project. The B2C tenant used here is the sample tenant provided by Microsoft which is used also for their examples. As this file might include sensitive data it's not included in the git repository.
 
 ```json
 {
@@ -44,6 +44,49 @@ to install the dependencies, build, deploy and start the app. It them will be re
 
 ```bash
 npm run start:local
+```
+
+# Authenticate to a CAP service using Entra ID
+
+Config of *default-env.json*:
+
+```json
+{
+  "VCAP_SERVICES": {
+    "xsuaa": [
+      {
+        "name": "cap-entra-id-csw",
+        "label": "azure-ad",
+        "tags": [
+          "azure-ad"
+        ],
+        "plan": "space",
+        "credentials": {
+          "identityMetadata": "https://login.microsoftonline.com/<your-tenant-id>/v2.0/.well-known/openid-configuration/",
+          "clientID": "<your-client-id>",
+          "audience": "<your-audience>",
+          "isB2C": false,
+          "validateIssuer": true,
+          "loggingLevel": "warn",
+          "loggingNoPII": false,
+          "passReqToCallback": false
+        }
+      }
+    ]
+  },
+  "destinations": []
+}
+```
+
+Config of *app/config.js*:
+
+```JavaScript
+// CSWEntraID
+const azureADconfig = {
+  clientId: "<your-client-id>",
+  authority:
+    "https://login.microsoftonline.com/<your-tenant-id>",
+};
 ```
 
 ## Deploy to Kyma
