@@ -70,7 +70,7 @@
     <script src="./config.js"></script>
     <script class="pre">
       var appConfig = {
-        b2cScopes: [azureADconfig.clientId],
+        scopes: azureADconfig.scopes,
         webApi: "/odata/v4/catalog/Books",
         adminWebApi: "/odata/v4/admin-catalog/Books",
       };
@@ -97,12 +97,12 @@
 
       // request to signin - returns an idToken
       const loginRequest = {
-        scopes: appConfig.b2cScopes,
+        scopes: appConfig.scopes,
       };
 
       // request to acquire a token for resource access
       const tokenRequest = {
-        scopes: appConfig.b2cScopes,
+        scopes: appConfig.scopes,
       };
 
       // signin and acquire a token silently with POPUP flow. Fall back in case of failure with silent acquisition to popup
