@@ -1,0 +1,32 @@
+### Get SAML Bearer Token from Entra ID
+# @name requestSAMLBearerToken
+POST https://login.microsoftonline.com/{{$dotenv tenant}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{$dotenv token}}
+&client_id={{$dotenv client_id}}
+&client_secret={{$dotenv client_secret}}
+&scope={{$dotenv ApplicationIDuri}}/.default
+&requested_token_use=on_behalf_of
+&requested_token_type=urn:ietf:params:oauth:token-type:saml2
+
+### Fill Variables from Response
+@saml_bearer_token = {{requestSAMLBearerToken.response.body.$.access_token}}
+
+### Get Access Token from ABAP System
+# @name requestAccessToken
+POST {{$dotenv abap_server}}/sap/bc/sec/oauth2/token
+Authorization: Basic {{$dotenv abap_client_id}}:{{$dotenv abap_client_secret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer
+&assertion={{saml_bearer_token}}
+&client_id={{$dotenv abap_client_id}}
+### Fill Variables from Response
+@access_token = {{requestAccessToken.response.body.$.access_token}}
+### Request Data from ABAP System
+GET {{$dotenv abap_server}}/sap/opu/odata/sap/epm_ref_apps_prod_man_srv/Products
+  ?$top=10
+  &$format=json
+Authorization: Bearer {{access_token}}
