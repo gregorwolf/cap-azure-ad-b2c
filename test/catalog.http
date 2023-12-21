@@ -1,6 +1,6 @@
 ### Read Books Authenticated User Entities
 GET http://localhost:6420/odata/v4/catalog/
-
+Authorization: Bearer {{$dotenv token}}
 ### Read list of entities as Authenticated User
 GET http://localhost:6420/odata/v4/catalog/
 Authorization: Bearer {{$dotenv token}}
