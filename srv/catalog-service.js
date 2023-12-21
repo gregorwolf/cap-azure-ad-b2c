@@ -1,5 +1,6 @@
 const cds = require("@sap/cds");
 const LOG = cds.log("catalog-service");
+const { AuthClient } = require("./AuthClient");
 
 function getAuthToken(req) {
   const authHeader = req._.req.headers["authorization"];
@@ -19,7 +20,13 @@ module.exports = async function (srv) {
 
   srv.on("getOAuth2SAMLBearerAssertion", async (req) => {
     const token = getAuthToken(req);
+    const authClient = new AuthClient();
     LOG.debug("Token: " + token);
+    const samlAssertion = await authClient.getSamlAssertionForBtpTokenExchange(
+      token
+    );
+    LOG.debug("SAML Assertion: " + samlAssertion);
+    // https://login.microsoftonline.com/{{AAD tenant ID}}/oauth2/v2.0/token
   });
 
   srv.on("readSAPLogonTicket", async (req) => {
