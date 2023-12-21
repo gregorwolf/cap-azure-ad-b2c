@@ -2,7 +2,7 @@
 
 This example application demonstrates how to authenticate to a SAP Cloud Application Programming Model service using Azure AD B2C. The client UI is based on the example app [Single-Page Application built on MSAL.js with Azure AD B2C](https://github.com/Azure-Samples/active-directory-b2c-javascript-msal-singlepageapp).
 
-You want to give it a try please store the following content in the file *default-env.json* the root folder of this project. The B2C tenant used here is the sample tenant provided by Microsoft which is used also for their examples. As this file might include sensitive data it's not included in the git repository.
+You want to give it a try please store the following content in the file _default-env.json_ the root folder of this project. The B2C tenant used here is the sample tenant provided by Microsoft which is used also for their examples. As this file might include sensitive data it's not included in the git repository.
 
 ```json
 {
@@ -11,9 +11,7 @@ You want to give it a try please store the following content in the file *defaul
       {
         "name": "cap-azure-ad-b2c-uaa",
         "label": "azure-ad",
-        "tags": [
-          "azure-ad"
-        ],
+        "tags": ["azure-ad"],
         "plan": "space",
         "credentials": {
           "identityMetadata": "https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/B2C_1_SUSI/v2.0/.well-known/openid-configuration/",
@@ -48,7 +46,7 @@ npm run start:local
 
 # Authenticate to a CAP service using Entra ID
 
-Config of *default-env.json*:
+Config of _default-env.json_:
 
 ```json
 {
@@ -57,14 +55,14 @@ Config of *default-env.json*:
       {
         "name": "cap-entra-id-csw",
         "label": "azure-ad",
-        "tags": [
-          "azure-ad"
-        ],
+        "tags": ["azure-ad"],
         "plan": "space",
         "credentials": {
-          "identityMetadata": "https://login.microsoftonline.com/<your-tenant-id>/v2.0/.well-known/openid-configuration/",
+          "identityMetadata": "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration",
           "clientID": "<your-client-id>",
+          "clientSecret": "<your-client-secret>",
           "audience": "<your-audience>",
+          "issuer": "https://sts.windows.net/<your-tenant-id>/",
           "isB2C": false,
           "validateIssuer": true,
           "loggingLevel": "warn",
@@ -78,7 +76,7 @@ Config of *default-env.json*:
 }
 ```
 
-Config of *app/config.js*:
+Config of _app/config.js_:
 
 ```JavaScript
 // CSWEntraID
@@ -91,7 +89,7 @@ const azureADconfig = {
 
 ## Deploy to Kyma
 
-Download the kubeconfig from your Kyma instance via the menu behind the account Icon in the upper right corner. Save it in *~/.kube/kubeconfig-kyma.yml*. Then run:
+Download the kubeconfig from your Kyma instance via the menu behind the account Icon in the upper right corner. Save it in _~/.kube/kubeconfig-kyma.yml_. Then run:
 
 `export KUBECONFIG=~/.kube/kubeconfig-kyma.yml`
 
