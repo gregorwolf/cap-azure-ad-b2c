@@ -22,11 +22,11 @@ module.exports = async function (srv) {
     const token = getAuthToken(req);
     const authClient = new AuthClient();
     LOG.debug("Token: " + token);
-    const samlAssertion = await authClient.getSamlAssertionForBtpTokenExchange(
+    const btpAccessToken = await authClient.getAccessTokenForBtpAccess(
+      req,
       token
     );
-    LOG.debug("SAML Assertion: " + samlAssertion);
-    // https://login.microsoftonline.com/{{AAD tenant ID}}/oauth2/v2.0/token
+    LOG.debug("BTP Access Token: " + btpAccessToken);
   });
 
   srv.on("readSAPLogonTicket", async (req) => {

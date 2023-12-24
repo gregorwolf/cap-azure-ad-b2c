@@ -17,7 +17,10 @@ class AuthClient {
     xsenv.loadEnv();
     var services = {};
     try {
-      services = xsenv.getServices({ azuread: { tag: "azure-ad" } });
+      services = xsenv.getServices({
+        azuread: { tag: "azure-ad" },
+        xsuaa: { tag: "xsuaa" },
+      });
     } catch (error) {
       console.error(chalk.red("[azure-ad-auth-client] - " + error.message));
       console.error(
@@ -33,20 +36,113 @@ class AuthClient {
     this.appId = services.azuread.clientID;
     this.appSecret = services.azuread.clientSecret;
 
-    this.ApplicationIDuri = services.azuread.ApplicationIDuri;
+    this.ApplicationIDuri = services.azuread.IdentifierEntityID;
 
     // V2 AAD path for On-behalf-of flow
     this.pathOAuth = `/${this.aadTenantId}/oauth2/v2.0/token`;
+
+    this._xsuaaACSURLSuffix = "aws-live";
+    this.xsuaaUrl = services.xsuaa.url;
+    this.btpTokenEndpoint = `/oauth/token/alias/${services.xsuaa.identityzone}.${this._xsuaaACSURLSuffix}`;
+
+    this.xsuaaClientId = services.xsuaa.clientid;
+    this.xsuaaSecret = services.xsuaa.clientsecret;
+
     // On behalf of token use
     this.tokenUseValue = "on_behalf_of";
     // JWT-Bearer token grant type
     this.grantTypeJwtBearer = "urn:ietf:params:oauth:grant-type:jwt-bearer";
     // Token type SAML2
     this.tokenTypeSaml = "urn:ietf:params:oauth:token-type:saml2";
+    // Token type SAML bearer
+    this.grantTypeSaml = "urn:ietf:params:oauth:grant-type:saml2-bearer";
     // AAD hostname
     this.aadBasUrl = "https://login.microsoftonline.com";
 
     this.headerUrlEncoded = "application/x-www-form-urlencoded";
+  }
+
+  // Get BTP Access Token to access SAP Cloud Integration by exchanging SAML Assertion to BTP OAuth token issued by xsuaa
+  // If token is provided, the access token request can be skipped (e.g. when bot oAuth connection is used)
+
+  /**
+   * This method allows to request an OAuth token for SAP BTP access like calling Integration Flows
+   *
+   * Requesting such an OAuth token consists of multiple consecutive steps which will be outlined below.
+   *
+   * The first step (_getAccessTokenForBtpSamlAssertion) will make use of the on-behalf-of flow again by using current
+   * Microsoft Teams token and exchanging it to a an application access token issued by the extension application registration.
+   * This token will contain a custom scope allowing us to request a SAML assertion in the next step. In case of bot usage,
+   * this step can be skipped as the OAuth connection feature of the Bot service will return this application access token.
+   *
+   * Once the application access token including the custom scope is available, it can be used to obtain a SAML assertion
+   * from the application registration created when configuring the trust between SAP BTP and Azure AD. This SAML assertion
+   * can further on be used to retriev a valid oAuth token from SAP BTP (_getSamlAssertionForBtpTokenExchange).
+   *
+   * The SAML assertion is send to the XSUAA authentication endpoint of the SAP BTP subaccount. Due to the trust, between
+   * Azure AD and SAP BTP, XSUAA will process the SAML assertion and issue an oAuth token which can now be used to access
+   * SAP BTP ressources like Integration Flows of SAP Cloud Integration.
+   *
+   */
+  async getAccessTokenForBtpAccess(req, token) {
+    try {
+      // if (!token) token = await this._getAccessTokenForBtpSamlAssertion(req);
+      const samlAssertionAzureAd =
+        await this.getSamlAssertionForBtpTokenExchange(token);
+
+      const data = qs.stringify({
+        assertion: samlAssertionAzureAd,
+        grant_type: this.grantTypeSaml,
+      });
+
+      // This token endpoint is able to process the SAML assertion
+      const btpTokenEndpoint = this.xsuaaUrl + this.btpTokenEndpoint;
+
+      // Request a new OAuth token for SAP Cloud Integration apiaccess using the SAML assertion
+      // and the respective client id and secret of the process integration runtime instance.
+      let res = await (async () => {
+        try {
+          let resp = await axios.post(btpTokenEndpoint, data, {
+            auth: {
+              username: this.xsuaaClientId,
+              password: this.xsuaaSecret,
+            },
+            headers: {
+              "Content-Type": this.headerUrlEncoded,
+            },
+          });
+          return resp;
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+
+      // The access token can now be extracted from the result
+      if (
+        res.data &&
+        res.headers["content-type"].includes("application/json")
+      ) {
+        const responseBody = res.data;
+        let accessToken = " ";
+        try {
+          accessToken = responseBody["access_token"].toString();
+          return accessToken;
+        } catch (err) {
+          console.error("No JSON response. Access Token request failed");
+        }
+      } else {
+        console.error("HTTP Response was invalid and cannot be deserialized.");
+      }
+    } catch (err) {
+      console.error(err);
+
+      if (
+        err.error === "invalid_grant" ||
+        err.error === "interaction_required"
+      ) {
+        throw new Error(err.error);
+      }
+    }
   }
 
   // Get SAML Assertion for BTP Access (on behalf of flow )
