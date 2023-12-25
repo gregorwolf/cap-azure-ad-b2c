@@ -2,15 +2,17 @@
  * Helper function to call MS Graph API endpoint
  * using the authorization bearer token scheme
  */
-function callBookshop(endpoint, token, callback) {
+function callBookshop(method, endpoint, body, token, callback) {
   const headers = new Headers();
   const bearer = `Bearer ${token}`;
 
   headers.append("Authorization", bearer);
+  headers.append("Content-Type", "application/json");
 
   const options = {
-    method: "GET",
-    headers: headers,
+    method,
+    headers,
+    body,
   };
 
   console.log("request made to Graph API at: " + new Date().toString());

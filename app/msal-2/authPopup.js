@@ -119,7 +119,25 @@ function readBooks() {
   getTokenPopup(tokenRequest)
     .then((response) => {
       callBookshop(
-        bookshopConfig.booksEndpoint,
+        bookshopConfig.booksEndpoint.method,
+        bookshopConfig.booksEndpoint.path,
+        bookshopConfig.booksEndpoint?.body,
+        response.accessToken,
+        updateUI
+      );
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+function getBTPJWT() {
+  getTokenPopup(tokenRequest)
+    .then((response) => {
+      callBookshop(
+        bookshopConfig.getBTPJWTEndpoint.method,
+        bookshopConfig.getBTPJWTEndpoint.path,
+        bookshopConfig.getBTPJWTEndpoint?.body,
         response.accessToken,
         updateUI
       );
