@@ -8,6 +8,6 @@ service CatalogService @(requires: 'authenticated-user') {
     @readonly
     entity Products as projection on external.SEPMRA_C_PD_Product;
 
-    action getOAuth2SAMLBearerAssertion() returns String;
-    action readSAPLogonTicket()           returns String;
+    action getBTPJWT()          returns String;
+    action readSAPLogonTicket() returns String;
 }

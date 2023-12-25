@@ -18,7 +18,7 @@ module.exports = async function (srv) {
     return productService.run(req.query);
   });
 
-  srv.on("getOAuth2SAMLBearerAssertion", async (req) => {
+  srv.on("getBTPJWT", async (req) => {
     const token = getAuthToken(req);
     const authClient = new AuthClient();
     LOG.debug("Token: " + token);
@@ -27,6 +27,7 @@ module.exports = async function (srv) {
       token
     );
     LOG.debug("BTP Access Token: " + btpAccessToken);
+    return btpAccessToken;
   });
 
   srv.on("readSAPLogonTicket", async (req) => {

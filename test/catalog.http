@@ -13,7 +13,7 @@ GET http://localhost:6420/odata/v4/catalog/Products
   &$top=10
 Authorization: Bearer {{$dotenv token}}
 ###
-POST http://localhost:6420/odata/v4/catalog/getOAuth2SAMLBearerAssertion
+POST http://localhost:6420/odata/v4/catalog/getBTPJWT
 Authorization: Bearer {{$dotenv token}}
 Content-Type: application/json
 
