@@ -7,7 +7,9 @@ grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 &assertion={{$dotenv token}}
 &client_id={{$dotenv client_id}}
 &client_secret={{$dotenv client_secret}}
-&scope={{$dotenv ApplicationIDuri}}/.default
+# ABAP
+#&scope={{$dotenv ApplicationIDuri}}/.default
+&scope={{$dotenv btp_auth}}/.default
 &requested_token_use=on_behalf_of
 &requested_token_type=urn:ietf:params:oauth:token-type:saml2
 
@@ -30,3 +32,23 @@ GET {{$dotenv abap_server}}/sap/opu/odata/sap/epm_ref_apps_prod_man_srv/Products
   ?$top=10
   &$format=json
 Authorization: Bearer {{access_token}}
+
+### Get SAML Metadata from SAP BTP
+GET {{$dotenv btp_auth}}/saml/metadata
+### Get Access Token from SAP BTP
+# @name requestAccessTokenBTP
+POST {{$dotenv btp_auth}}{{$dotenv btp_auth_path}}
+Authorization: Basic {{$dotenv btp_clientid}}:{{$dotenv btp_clientsecret}}
+Content-Type: application/x-www-form-urlencoded
+
+assertion={{saml_bearer_token}}
+&grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer
+###
+#@access_token_btp = {{requestAccessTokenBTP.response.body.$.access_token}}
+@access_token_btp={{$dotenv token}}
+### Request Data from SAP BTP
+GET {{$dotenv graph_uri}}/api/s4hc/sap.s4/A_Product
+  ?$top=10
+  &$select=Product,Brand,CountryOfOrigin
+  &$count=true
+Authorization: Bearer {{access_token_btp}}
