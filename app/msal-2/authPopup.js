@@ -147,4 +147,20 @@ function getBTPJWT() {
     });
 }
 
+function readProductsFromSAPGraph() {
+  getTokenPopup(tokenRequest)
+    .then((response) => {
+      callBookshop(
+        bookshopConfig.readProductsFromSAPGraphEndpoint.method,
+        bookshopConfig.readProductsFromSAPGraphEndpoint.path,
+        bookshopConfig.readProductsFromSAPGraphEndpoint?.body,
+        response.accessToken,
+        updateUI
+      );
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 selectAccount();

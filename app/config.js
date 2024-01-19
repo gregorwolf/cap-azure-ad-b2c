@@ -1,6 +1,6 @@
 // Azure AD B2C sample endpoint
 const clientId = "e760cab2-b9a1-4c0d-86fb-ff7084abd902";
-const azureADconfig = {
+const azureADconfigX = {
   clientId: clientId,
   scopes: [clientId],
   authority:
@@ -16,7 +16,7 @@ const azureADconfigCSWb2c = {
 };
 // CSWEntraID
 const clientIdCSWEntraID = "19702d90-5fb8-4d76-a6c9-557f55c771e8";
-const azureADconfigCSWEntraID = {
+const azureADconfig = {
   clientId: clientIdCSWEntraID,
   scopes: ["openid","profile","api://19702d90-5fb8-4d76-a6c9-557f55c771e8/SAP.ReadWrite"],
   authority:

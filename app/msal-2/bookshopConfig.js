@@ -6,4 +6,9 @@ const bookshopConfig = {
     method: "POST",
     body: "{}",
   },
+  readProductsFromSAPGraphEndpoint: {
+    path: "/odata/v4/catalog/readProductsFromSAPGraph",
+    method: "POST",
+    body: "{}",
+  },
 };

@@ -87,6 +87,13 @@
           "max": 10
         }
       },
+      "SAPGraph": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "SAPGraph",
+          "requestTimeout": 30000
+        }
+      },
       "uaa": {
         "kind": "xsuaa"
       },
