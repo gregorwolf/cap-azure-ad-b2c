@@ -6,7 +6,8 @@
  * Requests to SAP BTP are authenticated using a SAML assertion obtained from Azure AD (see details below).
  *
  */
-
+const cds = require("@sap/cds");
+const LOG = cds.log("auth-client");
 const qs = require("qs");
 const axios = require("axios");
 const xsenv = require("@sap/xsenv");
@@ -22,8 +23,8 @@ class AuthClient {
         xsuaa: { tag: "xsuaa" },
       });
     } catch (error) {
-      console.error(chalk.red("[azure-ad-auth-client] - " + error.message));
-      console.error(
+      LOG.error(chalk.red("[azure-ad-auth-client] - " + error.message));
+      LOG.error(
         "[azure-ad-auth-client] - maintain default-env.json or provide the environment variable VCAP_SERVICES"
       );
       throw new Error(error.message);
@@ -36,11 +37,12 @@ class AuthClient {
     this.appId = services.azuread.clientID;
     this.appSecret = services.azuread.clientSecret;
 
-    this.ApplicationIDuri = services.azuread.IdentifierEntityID;
+    this.ApplicationIDuri = services.xsuaa.url + "/.default";
 
     // V2 AAD path for On-behalf-of flow
     this.pathOAuth = `/${this.aadTenantId}/oauth2/v2.0/token`;
 
+    // this._xsuaaACSURLSuffix = "aws-live-eu10";
     this._xsuaaACSURLSuffix = "aws-live";
     this.xsuaaUrl = services.xsuaa.url;
     this.btpTokenEndpoint = `/oauth/token/alias/${services.xsuaa.identityzone}.${this._xsuaaACSURLSuffix}`;
@@ -113,13 +115,13 @@ class AuthClient {
           });
           return resp;
         } catch (err) {
-          console.error(err);
+          LOG.error(err.response.data.error_description);
         }
       })();
 
       // The access token can now be extracted from the result
       if (
-        res.data &&
+        res?.data &&
         res.headers["content-type"].includes("application/json")
       ) {
         const responseBody = res.data;
@@ -128,13 +130,13 @@ class AuthClient {
           accessToken = responseBody["access_token"].toString();
           return accessToken;
         } catch (err) {
-          console.error("No JSON response. Access Token request failed");
+          LOG.error("No JSON response. Access Token request failed");
         }
       } else {
-        console.error("HTTP Response was invalid and cannot be deserialized.");
+        LOG.error("HTTP Response was invalid and cannot be deserialized.");
       }
     } catch (err) {
-      console.error(err);
+      LOG.error(err);
 
       if (
         err.error === "invalid_grant" ||
@@ -183,26 +185,29 @@ class AuthClient {
         });
         return resp;
       } catch (err) {
-        console.error(err);
+        LOG.error(err);
       }
     })();
 
     if (res.fstatus == 200) {
       // test for status you want, etc
-      console.log(res.status);
+      LOG.log(res.status);
     }
 
     if (res.data && res.headers["content-type"].includes("application/json")) {
       const responseBody = res.data;
-      let samlAssertion = " ";
+      let samlAssertionBase64 = " ";
       try {
-        samlAssertion = responseBody["access_token"].toString();
-        return samlAssertion;
+        samlAssertionBase64 = responseBody["access_token"].toString();
+        var samlAssertionBuffer = Buffer.from(samlAssertionBase64, "base64");
+        var samlAssertion = samlAssertionBuffer.toString("utf-8");
+        LOG._debug && LOG.debug("SAML Assertion: " + samlAssertion);
+        return samlAssertionBase64;
       } catch (err) {
-        console.error("No JSON response. SAML Token request failed");
+        LOG.error("No JSON response. SAML Token request failed");
       }
     } else {
-      console.error("HTTP Response was invalid and cannot be deserialized.");
+      LOG.error("HTTP Response was invalid and cannot be deserialized.");
     }
   }
 
