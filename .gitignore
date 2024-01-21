@@ -12,3 +12,5 @@ connection.properties
 _out
 default-*.json
 .env
+
+certificates/

@@ -1,0 +1,35 @@
+diff --git a/node_modules/saml/lib/saml11.template b/node_modules/saml/lib/saml11.template
+index 531f3a7..6a1d142 100644
+--- a/node_modules/saml/lib/saml11.template
++++ b/node_modules/saml/lib/saml11.template
+@@ -6,7 +6,7 @@
+     <saml:Subject>
+       <saml:NameIdentifier Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" />
+       <saml:SubjectConfirmation>
+-        <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:bearer</saml:ConfirmationMethod>
++        <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:sender-vouches</saml:ConfirmationMethod>
+       </saml:SubjectConfirmation>
+     </saml:Subject>
+   </saml:AttributeStatement>
+@@ -16,7 +16,7 @@
+        <saml:NameIdentifier Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">
+        </saml:NameIdentifier>
+        <saml:SubjectConfirmation>
+-          <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:bearer</saml:ConfirmationMethod>
++          <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:sender-vouches</saml:ConfirmationMethod>
+        </saml:SubjectConfirmation>
+     </saml:Subject>
+   </saml:AuthenticationStatement>
+diff --git a/node_modules/saml/lib/saml20.template b/node_modules/saml/lib/saml20.template
+index cd81289..a958fa1 100644
+--- a/node_modules/saml/lib/saml20.template
++++ b/node_modules/saml/lib/saml20.template
+@@ -2,7 +2,7 @@
+   <saml:Issuer></saml:Issuer>
+   <saml:Subject>
+     <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" />
+-    <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
++    <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:sender-vouches">
+       <saml:SubjectConfirmationData />
+     </saml:SubjectConfirmation>
+   </saml:Subject>

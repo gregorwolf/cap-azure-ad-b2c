@@ -1,0 +1,74 @@
+<Assertion ID="_b9aaf1b0-7c65-4e41-9ff8-257cf7a80500" IssueInstant="2024-01-21T09:38:25.873Z"
+  Version="2.0" xmlns="urn:oasis:names:tc:SAML:2.0:assertion">
+  <Issuer>https://sts.windows.net/6f8c8b13-6c5b-42e2-8a42-e4ef99e7ff48/</Issuer>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+      <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+      <Reference URI="#_b9aaf1b0-7c65-4e41-9ff8-257cf7a80500">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+          <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+        <DigestValue>gs5jRTw6afyqUnCDJGePn6tcvlzd+qyAcwMNHrYgsL8=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>
+    </SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>
+          MIIC8DCCAdigAwIBAgIQHRuLDvCR4IVHlwm1qPPJmzANBgkqhkiG9w0BAQsFADA0MTIwMAYDVQQDEylNaWNyb3NvZnQgQXp1cmUgRmVkZXJhdGVkIFNTTyBDZXJ0aWZpY2F0ZTAeFw0yNDAxMTkxMTQ4MzJaFw0yNzAxMTkxMTQ4MzJaMDQxMjAwBgNVBAMTKU1pY3Jvc29mdCBBenVyZSBGZWRlcmF0ZWQgU1NPIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0c2MoPEAGzx0KKnEu9G+WhuAsSkOpn9CeibAEGbANnztuJuNBmjMjKXipvHYeMwymo6gptYsC0WBWZzYnuQv7kUz1XL3KkEMh1maVxZbGohcuiEM3FN+RUNkXKzic6grQdlPClUxoYZ/WASpZKvtUjuHgax1Xdm9iqwU+pUjYWbPvEefCP+KKMz7rub35+R3RSHmEDgT7g5L6zFXJEzl5LSJL19b2wXmj93i1obyD7Z5YJLwjxc9zzF+5+SDXSC+Rh/k4yHy5v0q35CbYmcGTXG6X5g3f8wJFYGvoi5j2k492bit7kTFeSgfEehSPKaCK73V7vw3LIJAXkXxuJs8dQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBpFKznH/4mu91FYaUQ90JqzCLnCzm3qXfmNVW6KNxnZ2ky1+hViDMkwkYct8sQiLx+IVYVX/ze1XhtuJsx2QKpolc4H5fSQik6v1Qw7wnL0HbK2ChEp6EEf9hI6+z4+roNvrmGmEmemBf5QbL0PHI4LCm7lvoe297gXjKN/B+Tu02rxEnup+FaKsZx6sq7RF+ktnhOs/3gkJDG41hi47Uk1Z0FY3L/fFAr6EWGb0BQLg6VYeniws187ImBFOnyqqZgXlLfbeZmzkmnuQcJUGjLEuKoyHcfeBPwW8umU+ggQlKAX6mxnlIhw30OwnGmD2a+lARclONWHTiGX4IdTTXl</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+  <Subject>
+    <NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">
+      gregor@computerservice-wolf.com</NameID>
+    <SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+      <SubjectConfirmationData NotOnOrAfter="2024-01-21T10:35:53.746Z"
+        Recipient="https://3c8d325btrial.authentication.us10.hana.ondemand.com/oauth/token/alias/3c8d325btrial.aws-live" />
+    </SubjectConfirmation>
+  </Subject>
+  <Conditions NotBefore="2024-01-21T09:33:25.746Z" NotOnOrAfter="2024-01-21T10:35:53.746Z">
+    <AudienceRestriction>
+      <Audience>https://3c8d325btrial.authentication.us10.hana.ondemand.com</Audience>
+    </AudienceRestriction>
+  </Conditions>
+  <AttributeStatement>
+    <Attribute Name="http://schemas.microsoft.com/identity/claims/tenantid">
+      <AttributeValue>6f8c8b13-6c5b-42e2-8a42-e4ef99e7ff48</AttributeValue>
+    </Attribute>
+    <Attribute Name="http://schemas.microsoft.com/identity/claims/objectidentifier">
+      <AttributeValue>648e8502-0695-4d29-85a8-22d33c8967b3</AttributeValue>
+    </Attribute>
+    <Attribute Name="http://schemas.microsoft.com/identity/claims/displayname">
+      <AttributeValue>Gregor Wolf</AttributeValue>
+    </Attribute>
+    <Attribute Name="http://schemas.microsoft.com/identity/claims/identityprovider">
+      <AttributeValue>https://sts.windows.net/6f8c8b13-6c5b-42e2-8a42-e4ef99e7ff48/</AttributeValue>
+    </Attribute>
+    <Attribute Name="http://schemas.microsoft.com/claims/authnmethodsreferences">
+      <AttributeValue>http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/password</AttributeValue>
+      <AttributeValue>http://schemas.microsoft.com/claims/multipleauthn</AttributeValue>
+    </Attribute>
+    <Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname">
+      <AttributeValue>Gregor</AttributeValue>
+    </Attribute>
+    <Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname">
+      <AttributeValue>Wolf</AttributeValue>
+    </Attribute>
+    <Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress">
+      <AttributeValue>gregor@computerservice-wolf.com</AttributeValue>
+    </Attribute>
+    <Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name">
+      <AttributeValue>gregor@computerservice-wolf.com</AttributeValue>
+    </Attribute>
+  </AttributeStatement>
+  <AuthnStatement AuthnInstant="2024-01-12T08:54:04.203Z">
+    <AuthnContext>
+      <AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</AuthnContextClassRef>
+    </AuthnContext>
+  </AuthnStatement>
+</Assertion>

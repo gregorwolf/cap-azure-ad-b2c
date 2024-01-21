@@ -1,0 +1,12 @@
+### 
+GET http://localhost:6420/odata/v4/saml
+Authorization: Bearer {{$dotenv token}}
+### 
+GET http://localhost:6420/odata/v4/saml/$metadata
+Authorization: Bearer {{$dotenv token}}
+### 
+GET http://localhost:6420/odata/v4/saml/getMetadata()
+Authorization: Bearer {{$dotenv token}}
+### 
+GET http://localhost:6420/odata/v4/saml/getSamlAssertion()
+Authorization: Bearer {{$dotenv token}}

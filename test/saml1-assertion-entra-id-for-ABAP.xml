@@ -1,0 +1,87 @@
+<saml:Assertion MajorVersion="1" MinorVersion="1"
+  AssertionID="_5ef1ce98-29c7-49ad-8458-ee59acc95723"
+  Issuer="https://sts.windows.net/6f8c8b13-6c5b-42e2-8a42-e4ef99e7ff48/"
+  IssueInstant="2024-01-21T10:33:11.222Z" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
+  <saml:Conditions NotBefore="2024-01-21T10:28:11.093Z" NotOnOrAfter="2024-01-21T10:35:53.093Z">
+    <saml:AudienceRestrictionCondition>
+      <saml:Audience>http://A4H</saml:Audience>
+    </saml:AudienceRestrictionCondition>
+  </saml:Conditions>
+  <saml:AttributeStatement>
+    <saml:Subject>
+      <saml:NameIdentifier>gregor@computerservice-wolf.com</saml:NameIdentifier>
+      <saml:SubjectConfirmation>
+        <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:bearer</saml:ConfirmationMethod>
+      </saml:SubjectConfirmation>
+    </saml:Subject>
+    <saml:Attribute AttributeName="tenantid"
+      AttributeNamespace="http://schemas.microsoft.com/identity/claims">
+      <saml:AttributeValue>6f8c8b13-6c5b-42e2-8a42-e4ef99e7ff48</saml:AttributeValue>
+    </saml:Attribute>
+    <saml:Attribute AttributeName="objectidentifier"
+      AttributeNamespace="http://schemas.microsoft.com/identity/claims">
+      <saml:AttributeValue>648e8502-0695-4d29-85a8-22d33c8967b3</saml:AttributeValue>
+    </saml:Attribute>
+    <saml:Attribute AttributeName="displayname"
+      AttributeNamespace="http://schemas.microsoft.com/identity/claims">
+      <saml:AttributeValue>Gregor Wolf</saml:AttributeValue>
+    </saml:Attribute>
+    <saml:Attribute AttributeName="identityprovider"
+      AttributeNamespace="http://schemas.microsoft.com/identity/claims">
+      <saml:AttributeValue>https://sts.windows.net/6f8c8b13-6c5b-42e2-8a42-e4ef99e7ff48/</saml:AttributeValue>
+    </saml:Attribute>
+    <saml:Attribute AttributeName="authnmethodsreferences"
+      AttributeNamespace="http://schemas.microsoft.com/claims">
+      <saml:AttributeValue>
+        http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/password</saml:AttributeValue>
+      <saml:AttributeValue>http://schemas.microsoft.com/claims/multipleauthn</saml:AttributeValue>
+    </saml:Attribute>
+    <saml:Attribute AttributeName="givenname"
+      AttributeNamespace="http://schemas.xmlsoap.org/ws/2005/05/identity/claims">
+      <saml:AttributeValue>Gregor</saml:AttributeValue>
+    </saml:Attribute>
+    <saml:Attribute AttributeName="surname"
+      AttributeNamespace="http://schemas.xmlsoap.org/ws/2005/05/identity/claims">
+      <saml:AttributeValue>Wolf</saml:AttributeValue>
+    </saml:Attribute>
+    <saml:Attribute AttributeName="emailaddress"
+      AttributeNamespace="http://schemas.xmlsoap.org/ws/2005/05/identity/claims">
+      <saml:AttributeValue>gregor@computerservice-wolf.com</saml:AttributeValue>
+    </saml:Attribute>
+    <saml:Attribute AttributeName="name"
+      AttributeNamespace="http://schemas.xmlsoap.org/ws/2005/05/identity/claims">
+      <saml:AttributeValue>gregor@computerservice-wolf.com</saml:AttributeValue>
+    </saml:Attribute>
+  </saml:AttributeStatement>
+  <saml:AuthenticationStatement AuthenticationMethod="urn:oasis:names:tc:SAML:1.0:am:password"
+    AuthenticationInstant="2024-01-12T08:54:04.203Z">
+    <saml:Subject>
+      <saml:NameIdentifier>gregor@computerservice-wolf.com</saml:NameIdentifier>
+      <saml:SubjectConfirmation>
+        <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:bearer</saml:ConfirmationMethod>
+      </saml:SubjectConfirmation>
+    </saml:Subject>
+  </saml:AuthenticationStatement>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+      <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+      <Reference URI="#_5ef1ce98-29c7-49ad-8458-ee59acc95723">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+          <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+        <DigestValue>XiQAg7MAz0Gr4nsbwn0f4dt+dlCiX/hIA0m2nhjK3ak=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>
+    </SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>
+          MIIC8DCCAdigAwIBAgIQPaaIiVFbh6xJVXZxwoNEMjANBgkqhkiG9w0BAQsFADA0MTIwMAYDVQQDEylNaWNyb3NvZnQgQXp1cmUgRmVkZXJhdGVkIFNTTyBDZXJ0aWZpY2F0ZTAeFw0yMzEyMjAxNjU3MzdaFw0yNjEyMjAxNjU3MzdaMDQxMjAwBgNVBAMTKU1pY3Jvc29mdCBBenVyZSBGZWRlcmF0ZWQgU1NPIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw7sHOt0iLCuKkBgLCIUMnGMJ5kisU0SD7mjYnBQ/9yyIpARpQdMGp+1c20moKDXf2IUiqv4tswf58rF0U3skvxFh8VeKG4VVZpVXNvO2nlPJ0ta3KAGVWAg0tVak7exJ+hFECsAhjSlECJqlwlUDuo4Mn6lPT+8E9RBdb/h/HdWQD7PvTQBK/GlturYwaJUmNB6ms/SIVpN53L75yGsCE4VBvdYbAK+L0oK4E8neM+mLGLvDq1Qj+nIJD2cHCv+/3vQgDluayZIaV+KAPQS3OQkJ3mIn038mdfOwdDvVhhb3OvBnbtKQBaCIb3JASTQCt80ipkK6JVcLW6jU423uzQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQAd+P0N8c646jjE/pcBDC4f8BdWkujkOVAos3T3PdAlCZxgfnLhKMLdn2iACgP9MHi5pDAxkgINJoR7fiE6OTPeFqWCDUSWvcLb+ztn6ZM3lt88C3rhoEejTDNlIOsl7HSQ6uXuK+gB4CoWtnZYdAmKH/aSAcu055/mnbt4094Ts5QcDGoSMtxPfuI6w0vp+4FyP8fp7NSGQte09YuHw7bclCgcIEwr7FlXufGtjNzgocr5HmGK0TLrGegyRyZC/nXcQeASM11Y+f5a4YRfv/8yaMH1qwTVdN/mnn5HsSBbkjixgcoiVVLDMzKoY1FS9SL3J/uEoh/zYg/jO+wcEy4J</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</saml:Assertion>

@@ -1,0 +1,54 @@
+<Assertion xmlns="urn:oasis:names:tc:SAML:1.0:assertion" MajorVersion="1" MinorVersion="1"
+  AssertionID="_u3fwVB65eZE8MdaKjGQ4GoUAqbghbShY" IssueInstant="2024-01-21T10:31:57.912Z"
+  Issuer="https://idp.example.com">
+  <Conditions NotBefore="2024-01-21T10:31:57.912Z" NotOnOrAfter="2024-01-21T10:41:57.912Z">
+    <AudienceRestrictionCondition>
+      <Audience>http://A4H</Audience>
+    </AudienceRestrictionCondition>
+  </Conditions>
+  <AttributeStatement>
+    <Subject>
+      <NameIdentifier Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">
+        648e8502-0695-4d29-85a8-22d33c8967b3</NameIdentifier>
+      <SubjectConfirmation>
+        <ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:sender-vouches</ConfirmationMethod>
+      </SubjectConfirmation>
+    </Subject>
+    <Attribute AttributeNamespace="http://schemas.xmlsoap.org/ws/2005/05/identity/claims"
+      AttributeName="name">
+      <AttributeValue>Gregor Wolf</AttributeValue>
+    </Attribute>
+  </AttributeStatement>
+  <AuthenticationStatement AuthenticationMethod="urn:oasis:names:tc:SAML:1.0:am:password"
+    AuthenticationInstant="2024-01-21T10:31:57.912Z">
+    <Subject>
+      <NameIdentifier Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">
+        648e8502-0695-4d29-85a8-22d33c8967b3</NameIdentifier>
+      <SubjectConfirmation>
+        <ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:sender-vouches</ConfirmationMethod>
+      </SubjectConfirmation>
+    </Subject>
+  </AuthenticationStatement>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+      <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+      <Reference URI="#_u3fwVB65eZE8MdaKjGQ4GoUAqbghbShY">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+          <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+        <DigestValue>DNQ48nQ0YlZCtYKjYhnXDj0PUXRMjC7scLsVxtLgxfs=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>
+    </SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>
+          MIIEQjCCAqqgAwIBAgIRAK8x38sblAy/JKQcZPpA06QwDQYJKoZIhvcNAQELBQAwdzEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSYwJAYDVQQLDB1nd29sZkBNQlAxNVRvdWNoYmFyLmZ1Yi5sb2NhbDEtMCsGA1UEAwwkbWtjZXJ0IGd3b2xmQE1CUDE1VG91Y2hiYXIuZnViLmxvY2FsMB4XDTI0MDEyMTEwMTA0N1oXDTI2MDQyMTA5MTA0N1owXDEnMCUGA1UEChMebWtjZXJ0IGRldmVsb3BtZW50IGNlcnRpZmljYXRlMTEwLwYDVQQLDChnd29sZkBtYnAxNi0yMDIzLmZyaXR6LmJveCAoR3JlZ29yIFdvbGYpMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvezSj/HfTlJLMR5ceBMHvvMHFsjKyR3woELUikRrWesnsw5PrWpAcddQYXu/qfD/zq/H9y3JizVew3Ea1p0FOctitTdkVJtM4c0KlO49ieLI7CaMQjeFl+F3TW/spSLNpTOMBOTXZU8zYBVlXQ0jFLdBHKKsgvls+kwuKyOeig8B7zywPOlzRAmXq7fFYK9wQHVT+stWtMMlldg/atO+1YvQLb0eFa5YTHk+1XCeZVMqKCn3s2j8IJbjSFSiCQd6VyaZtGhqy/lO+79NGuqGY99SW1h9wKBQD7ejetXC08+YB71gvpnJMa6lICKdcL78RaCCelPPj9KKb/k+dbMvHQIDAQABo2QwYjAOBgNVHQ8BAf8EBAMCBaAwEwYDVR0lBAwwCgYIKwYBBQUHAwEwHwYDVR0jBBgwFoAUBpON7wycOyWbai5h3uLxsACWmE0wGgYDVR0RBBMwEYIPaWRwLmV4YW1wbGUuY29tMA0GCSqGSIb3DQEBCwUAA4IBgQCky2vn8VgkZ0WhNfKhGT6NBQwZ8K1A8Eeq0kphOrnHhi3cbIICYElDqc9Crb+zAUVGPCfKNAmq7FJaDB2Hp+glnb8L+w2hi1W4MaLAExFZAjEpd01JVODxLwo3RsUDsKh7y1c+8y0j1jgXhFIyhC6x03tB0YgwVZJDBxI3+7xA7JTOC2GacWzLgqi3X4MxR7TYx2AbFyDsrctDwZJCw7K91ewSXlQGU0eoXK1WlV/pmwsnZtYiGGQHDlfentZMHRDDNuoBPhGc1a7o7mK5jQ3ELLU3RdV7PUjDiVwY+RUim5lIQRfZi70lSlugYWHTSFsMOYZOTljoZwU+TR9GWQ2qPfomlyOoZX4WbuKxkcgn7e8Fzs/isWS4OH5A0Sv3+ouFU06keFbcGfv5QXTxmZQYizZUUEZNxS9cC2go87AhznaIM9yVEMdqFBj5UJcTwPy9l+EzlIkBkqTw1u1cf7RU9WJSlu65o6DdXzu7HmlR/lcZmiRwdiL9DEKPWUFP+Nk=</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</Assertion>
