@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions targetNamespace="http://soapRuntime/Test"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soapRuntime/Test"
+  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+  </wsdl:documentation>
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="BN__SAML">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedMimeSerialization
+          xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+          wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+          wsp:Optional="true" />
+        <wsp:All xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+          <sp:AsymmetricBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:InitiatorSignatureToken>
+                <wsp:Policy>
+                  <sp:X509Token
+                    sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                    <wsp:Policy>
+                      <sp:WssX509V3Token10 />
+                    </wsp:Policy>
+                  </sp:X509Token>
+                </wsp:Policy>
+              </sp:InitiatorSignatureToken>
+              <sp:AlgorithmSuite>
+                <wsp:Policy>
+                  <sp:Basic128Rsa15 />
+                </wsp:Policy>
+              </sp:AlgorithmSuite>
+              <sp:Layout>
+                <wsp:Policy>
+                  <sp:Strict />
+                </wsp:Policy>
+              </sp:Layout>
+              <sp:IncludeTimestamp />
+              <sp:OnlySignEntireHeadersAndBody />
+            </wsp:Policy>
+          </sp:AsymmetricBinding>
+          <sp:Wss10 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:MustSupportRefKeyIdentifier />
+              <sp:MustSupportRefIssuerSerial />
+            </wsp:Policy>
+          </sp:Wss10>
+          <sp:SignedParts xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <sp:Body />
+            <sp:Header Name="Trace"
+              Namespace="http://www.sap.com/webas/630/soap/features/runtime/tracing/" />
+            <sp:Header Name="messageId"
+              Namespace="http://www.sap.com/webas/640/soap/features/messageId/" />
+            <sp:Header Name="CallerInformation"
+              Namespace="http://www.sap.com/webas/712/soap/features/runtime/metering/" />
+            <sp:Header Name="Session"
+              Namespace="http://www.sap.com/webas/630/soap/features/session/" />
+            <sp:Header Name="To" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="From" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="FaultTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="ReplyTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="MessageID" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="RelatesTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="Action" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="ReferenceParameters" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="SequenceAcknowledgement"
+              Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="SequenceFault" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="Sequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="AckRequested" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="SequenceAcknowledgement"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="SequenceFault" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="UsesSequenceSTR"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="UsesSequenceSSL"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+          </sp:SignedParts>
+          <sp:SignedSupportingTokens
+            xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                <wsp:Policy>
+                  <sp:WssSamlV11Token10 />
+                </wsp:Policy>
+              </sp:SamlToken>
+            </wsp:Policy>
+          </sp:SignedSupportingTokens>
+        </wsp:All>
+      </wsp:All>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedXMLTransfer uri="http://xml.sap.com/2006/11/esi/esp/binxml"
+          xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/"
+          wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+          wsp:Optional="true" />
+        <wsp:All xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+          <sp:AsymmetricBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:InitiatorSignatureToken>
+                <wsp:Policy>
+                  <sp:X509Token
+                    sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                    <wsp:Policy>
+                      <sp:WssX509V3Token10 />
+                    </wsp:Policy>
+                  </sp:X509Token>
+                </wsp:Policy>
+              </sp:InitiatorSignatureToken>
+              <sp:AlgorithmSuite>
+                <wsp:Policy>
+                  <sp:Basic128Rsa15 />
+                </wsp:Policy>
+              </sp:AlgorithmSuite>
+              <sp:Layout>
+                <wsp:Policy>
+                  <sp:Strict />
+                </wsp:Policy>
+              </sp:Layout>
+              <sp:IncludeTimestamp />
+              <sp:OnlySignEntireHeadersAndBody />
+            </wsp:Policy>
+          </sp:AsymmetricBinding>
+          <sp:Wss10 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:MustSupportRefKeyIdentifier />
+              <sp:MustSupportRefIssuerSerial />
+            </wsp:Policy>
+          </sp:Wss10>
+          <sp:SignedParts xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <sp:Body />
+            <sp:Header Name="Trace"
+              Namespace="http://www.sap.com/webas/630/soap/features/runtime/tracing/" />
+            <sp:Header Name="messageId"
+              Namespace="http://www.sap.com/webas/640/soap/features/messageId/" />
+            <sp:Header Name="CallerInformation"
+              Namespace="http://www.sap.com/webas/712/soap/features/runtime/metering/" />
+            <sp:Header Name="Session"
+              Namespace="http://www.sap.com/webas/630/soap/features/session/" />
+            <sp:Header Name="To" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="From" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="FaultTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="ReplyTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="MessageID" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="RelatesTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="Action" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="ReferenceParameters" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="SequenceAcknowledgement"
+              Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="SequenceFault" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="Sequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="AckRequested" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="SequenceAcknowledgement"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="SequenceFault" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="UsesSequenceSTR"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="UsesSequenceSSL"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+          </sp:SignedParts>
+          <sp:SignedSupportingTokens
+            xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                <wsp:Policy>
+                  <sp:WssSamlV11Token10 />
+                </wsp:Policy>
+              </sp:SamlToken>
+            </wsp:Policy>
+          </sp:SignedSupportingTokens>
+        </wsp:All>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BN__SAML_soap12">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedMimeSerialization
+          xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+          wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+          wsp:Optional="true" />
+        <wsp:All xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+          <sp:AsymmetricBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:InitiatorSignatureToken>
+                <wsp:Policy>
+                  <sp:X509Token
+                    sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                    <wsp:Policy>
+                      <sp:WssX509V3Token10 />
+                    </wsp:Policy>
+                  </sp:X509Token>
+                </wsp:Policy>
+              </sp:InitiatorSignatureToken>
+              <sp:AlgorithmSuite>
+                <wsp:Policy>
+                  <sp:Basic128Rsa15 />
+                </wsp:Policy>
+              </sp:AlgorithmSuite>
+              <sp:Layout>
+                <wsp:Policy>
+                  <sp:Strict />
+                </wsp:Policy>
+              </sp:Layout>
+              <sp:IncludeTimestamp />
+              <sp:OnlySignEntireHeadersAndBody />
+            </wsp:Policy>
+          </sp:AsymmetricBinding>
+          <sp:Wss10 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:MustSupportRefKeyIdentifier />
+              <sp:MustSupportRefIssuerSerial />
+            </wsp:Policy>
+          </sp:Wss10>
+          <sp:SignedParts xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <sp:Body />
+            <sp:Header Name="Trace"
+              Namespace="http://www.sap.com/webas/630/soap/features/runtime/tracing/" />
+            <sp:Header Name="messageId"
+              Namespace="http://www.sap.com/webas/640/soap/features/messageId/" />
+            <sp:Header Name="CallerInformation"
+              Namespace="http://www.sap.com/webas/712/soap/features/runtime/metering/" />
+            <sp:Header Name="Session"
+              Namespace="http://www.sap.com/webas/630/soap/features/session/" />
+            <sp:Header Name="To" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="From" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="FaultTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="ReplyTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="MessageID" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="RelatesTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="Action" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="ReferenceParameters" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="SequenceAcknowledgement"
+              Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="SequenceFault" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="Sequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="AckRequested" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="SequenceAcknowledgement"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="SequenceFault" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="UsesSequenceSTR"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="UsesSequenceSSL"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+          </sp:SignedParts>
+          <sp:SignedSupportingTokens
+            xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                <wsp:Policy>
+                  <sp:WssSamlV11Token10 />
+                </wsp:Policy>
+              </sp:SamlToken>
+            </wsp:Policy>
+          </sp:SignedSupportingTokens>
+        </wsp:All>
+      </wsp:All>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedXMLTransfer uri="http://xml.sap.com/2006/11/esi/esp/binxml"
+          xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/"
+          wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+          wsp:Optional="true" />
+        <wsp:All xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+          <sp:AsymmetricBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:InitiatorSignatureToken>
+                <wsp:Policy>
+                  <sp:X509Token
+                    sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                    <wsp:Policy>
+                      <sp:WssX509V3Token10 />
+                    </wsp:Policy>
+                  </sp:X509Token>
+                </wsp:Policy>
+              </sp:InitiatorSignatureToken>
+              <sp:AlgorithmSuite>
+                <wsp:Policy>
+                  <sp:Basic128Rsa15 />
+                </wsp:Policy>
+              </sp:AlgorithmSuite>
+              <sp:Layout>
+                <wsp:Policy>
+                  <sp:Strict />
+                </wsp:Policy>
+              </sp:Layout>
+              <sp:IncludeTimestamp />
+              <sp:OnlySignEntireHeadersAndBody />
+            </wsp:Policy>
+          </sp:AsymmetricBinding>
+          <sp:Wss10 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:MustSupportRefKeyIdentifier />
+              <sp:MustSupportRefIssuerSerial />
+            </wsp:Policy>
+          </sp:Wss10>
+          <sp:SignedParts xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <sp:Body />
+            <sp:Header Name="Trace"
+              Namespace="http://www.sap.com/webas/630/soap/features/runtime/tracing/" />
+            <sp:Header Name="messageId"
+              Namespace="http://www.sap.com/webas/640/soap/features/messageId/" />
+            <sp:Header Name="CallerInformation"
+              Namespace="http://www.sap.com/webas/712/soap/features/runtime/metering/" />
+            <sp:Header Name="Session"
+              Namespace="http://www.sap.com/webas/630/soap/features/session/" />
+            <sp:Header Name="To" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="From" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="FaultTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="ReplyTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="MessageID" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="RelatesTo" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="Action" Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" />
+            <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="ReferenceParameters" Namespace="http://www.w3.org/2005/08/addressing" />
+            <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="SequenceAcknowledgement"
+              Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="SequenceFault" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+            <sp:Header Name="Sequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="AckRequested" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="SequenceAcknowledgement"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="SequenceFault" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="UsesSequenceSTR"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+            <sp:Header Name="UsesSequenceSSL"
+              Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702" />
+          </sp:SignedParts>
+          <sp:SignedSupportingTokens
+            xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+            xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy"
+            xmlns:wsa="http://www.w3.org/2005/08/addressing"
+            xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+            xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility"
+            xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsp:Policy>
+              <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                <wsp:Policy>
+                  <sp:WssSamlV11Token10 />
+                </wsp:Policy>
+              </sp:SamlToken>
+            </wsp:Policy>
+          </sp:SignedSupportingTokens>
+        </wsp:All>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="IF__TEST_SYSTEM_INFO">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapsession:Session xmlns:sapsession="http://www.sap.com/webas/630/soap/features/session/">
+          <sapsession:enableSession>false</sapsession:enableSession>
+        </sapsession:Session>
+        <sapcentraladmin:CentralAdministration
+          xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/"
+          wsp:Optional="true">
+          <sapcentraladmin:BusinessApplicationID>0242AC1100021EDEAACA5AC334837A87</sapcentraladmin:BusinessApplicationID>
+        </sapcentraladmin:CentralAdministration>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="OP__get_info">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <saptrhnw05:required xmlns:saptrhnw05="http://www.sap.com/NW05/soap/features/transaction/">
+          no</saptrhnw05:required>
+        <sapcomhnd:enableCommit xmlns:sapcomhnd="http://www.sap.com/NW05/soap/features/commit/">
+          false</sapcomhnd:enableCommit>
+        <sapblock:enableBlocking xmlns:sapblock="http://www.sap.com/NW05/soap/features/blocking/">
+          true</sapblock:enableBlocking>
+        <saprmnw05:enableWSRM xmlns:saprmnw05="http://www.sap.com/NW05/soap/features/wsrm/">false</saprmnw05:enableWSRM>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://soapRuntime/Test" xmlns="http://soapRuntime/Test">
+      <xsd:element name="TEST_NONEED" type="TEST_NONEED" />
+      <xsd:element name="TEST_SYS_RESP" type="TEST_SYS_RESP" />
+      <xsd:complexType name="TEST_NONEED">
+        <xsd:sequence>
+          <xsd:element name="noneed" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TEST_SYS_RESP">
+        <xsd:sequence>
+          <xsd:element name="sid" type="sid" />
+          <xsd:element name="hostName" type="hostName" />
+          <xsd:element name="mandant" type="mandant" />
+          <xsd:element name="userName" type="userName" />
+          <xsd:element name="time" type="time" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="hostName">
+        <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="mandant">
+        <xsd:restriction base="xsd:string">
+          <xsd:length value="3" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="sid">
+        <xsd:restriction base="xsd:string">
+          <xsd:length value="3" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="time">
+        <xsd:restriction base="xsd:time">
+          <xsd:pattern value="[0-9]{2}:[0-9]{2}:[0-9]{2}" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="userName">
+        <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="TEST_NONEED">
+    <wsdl:part name="TEST_NONEED" element="tns:TEST_NONEED" />
+  </wsdl:message>
+  <wsdl:message name="TEST_SYS_RESP">
+    <wsdl:part name="TEST_SYS_RESP" element="tns:TEST_SYS_RESP" />
+  </wsdl:message>
+  <wsdl:portType name="TEST_SYSTEM_INFO">
+    <wsdl:documentation>
+      <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation">
+        <sapdoc:docitem applicationComponent="BC-ESI-WS-ABA-CFG" />
+      </sapdoc:sapdoc>
+    </wsdl:documentation>
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#IF__TEST_SYSTEM_INFO" />
+    </wsp:Policy>
+    <wsdl:operation name="get_info">
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP__get_info" />
+      </wsp:Policy>
+      <wsdl:input message="tns:TEST_NONEED" />
+      <wsdl:output message="tns:TEST_SYS_RESP" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SAML" type="tns:TEST_SYSTEM_INFO">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__SAML" />
+    </wsp:Policy>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <wsdl:operation name="get_info">
+      <soap:operation soapAction="http://soapRuntime/Test/TEST_SYSTEM_INFO/get_infoRequest"
+        style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SAML_soap12" type="tns:TEST_SYSTEM_INFO">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__SAML_soap12" />
+    </wsp:Policy>
+    <wsoap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <wsdl:operation name="get_info">
+      <wsoap12:operation soapAction="http://soapRuntime/Test/TEST_SYSTEM_INFO/get_infoRequest"
+        style="document" />
+      <wsdl:input>
+        <wsoap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsoap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DEFAULT">
+    <wsdl:port name="SAML" binding="tns:SAML">
+      <soap:address
+        location="https://vhcala4hci.dummy.nodomain:50001/sap/bc/srt/xip/sap/test_system_info/001/default/saml" />
+    </wsdl:port>
+    <wsdl:port name="SAML_soap12" binding="tns:SAML_soap12">
+      <wsoap12:address
+        location="https://vhcala4hci.dummy.nodomain:50001/sap/bc/srt/xip/sap/test_system_info/001/default/saml" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,30 @@
+###
+POST {{$dotenv abap_server}}/sap/bc/srt/xip/sap/test_system_info/001/default/https_basic_auth
+Authorization: Basic {{$dotenv abap_user}}:{{$dotenv abap_password}}
+Content-Type: text/xml
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tes t="http://soapRuntime/Test">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:TEST_NONEED>
+         <noneed>?</noneed>
+      </test:TEST_NONEED>
+   </soapenv:Body>
+</soapenv:Envelope>
+###
+POST {{$dotenv abap_server}}/sap/bc/srt/xip/sap/test_system_info/001/default/saml
+Authorization: Basic {{$dotenv abap_user}}:{{$dotenv abap_password}}
+Content-Type: text/xml
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://soapRuntime/Test">
+   <soapenv:Header>
+      <wsse:Security 
+         xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" 
+         xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">{{$dotenv abap_saml_assertion}}</wsse:Security>
+  </soapenv:Header>
+   <soapenv:Body>
+      <test:TEST_NONEED>
+         <noneed>?</noneed>
+      </test:TEST_NONEED>
+   </soapenv:Body>
+</soapenv:Envelope>
