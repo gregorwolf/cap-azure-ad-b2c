@@ -64,6 +64,49 @@ class AuthClient {
     this.headerUrlEncoded = "application/x-www-form-urlencoded";
   }
 
+  async getAccessTokenForBtpAccessFromSAMLAssertion(samlAssertion) {
+    const data = qs.stringify({
+      assertion: samlAssertion,
+      grant_type: this.grantTypeSaml,
+    });
+
+    // This token endpoint is able to process the SAML assertion
+    const btpTokenEndpoint = this.xsuaaUrl + this.btpTokenEndpoint;
+
+    // Request a new OAuth token for SAP Cloud Integration apiaccess using the SAML assertion
+    // and the respective client id and secret of the process integration runtime instance.
+    let res = await (async () => {
+      try {
+        let resp = await axios.post(btpTokenEndpoint, data, {
+          auth: {
+            username: this.xsuaaClientId,
+            password: this.xsuaaSecret,
+          },
+          headers: {
+            "Content-Type": this.headerUrlEncoded,
+          },
+        });
+        return resp;
+      } catch (err) {
+        LOG.error(err.response.data.error_description);
+      }
+    })();
+
+    // The access token can now be extracted from the result
+    if (res?.data && res.headers["content-type"].includes("application/json")) {
+      const responseBody = res.data;
+      let accessToken = " ";
+      try {
+        accessToken = responseBody["access_token"].toString();
+        return accessToken;
+      } catch (err) {
+        LOG.error("No JSON response. Access Token request failed");
+      }
+    } else {
+      LOG.error("HTTP Response was invalid and cannot be deserialized.");
+    }
+  }
+
   // Get BTP Access Token to access SAP Cloud Integration by exchanging SAML Assertion to BTP OAuth token issued by xsuaa
   // If token is provided, the access token request can be skipped (e.g. when bot oAuth connection is used)
 
@@ -89,52 +132,13 @@ class AuthClient {
   async getAccessTokenForBtpAccess(req, token) {
     try {
       // if (!token) token = await this._getAccessTokenForBtpSamlAssertion(req);
-      const samlAssertionAzureAd =
-        await this.getSamlAssertionForBtpTokenExchange(token);
+      const samlAssertionAzureAd = await this.getSamlAssertionForTokenExchange(
+        token
+      );
 
-      const data = qs.stringify({
-        assertion: samlAssertionAzureAd,
-        grant_type: this.grantTypeSaml,
-      });
-
-      // This token endpoint is able to process the SAML assertion
-      const btpTokenEndpoint = this.xsuaaUrl + this.btpTokenEndpoint;
-
-      // Request a new OAuth token for SAP Cloud Integration apiaccess using the SAML assertion
-      // and the respective client id and secret of the process integration runtime instance.
-      let res = await (async () => {
-        try {
-          let resp = await axios.post(btpTokenEndpoint, data, {
-            auth: {
-              username: this.xsuaaClientId,
-              password: this.xsuaaSecret,
-            },
-            headers: {
-              "Content-Type": this.headerUrlEncoded,
-            },
-          });
-          return resp;
-        } catch (err) {
-          LOG.error(err.response.data.error_description);
-        }
-      })();
-
-      // The access token can now be extracted from the result
-      if (
-        res?.data &&
-        res.headers["content-type"].includes("application/json")
-      ) {
-        const responseBody = res.data;
-        let accessToken = " ";
-        try {
-          accessToken = responseBody["access_token"].toString();
-          return accessToken;
-        } catch (err) {
-          LOG.error("No JSON response. Access Token request failed");
-        }
-      } else {
-        LOG.error("HTTP Response was invalid and cannot be deserialized.");
-      }
+      return this.getAccessTokenForBtpAccessFromSAMLAssertion(
+        samlAssertionAzureAd
+      );
     } catch (err) {
       LOG.error(err);
 
@@ -159,7 +163,7 @@ class AuthClient {
    * scenario. The resulting SAML assertion can then be used to obtain a valid oAuth token from XSUAA.
    *
    */
-  async getSamlAssertionForBtpTokenExchange(token) {
+  async getSamlAssertionForTokenExchange(token) {
     if (!token || !token.trim()) {
       throw new Error("Invalid token received.");
     }

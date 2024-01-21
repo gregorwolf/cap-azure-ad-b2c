@@ -55,7 +55,8 @@
     },
     "log": {
       "levels": {
-        "catalog-service": "debug"
+        "catalog-service": "debug",
+        "auth-client": "debug"
       }
     },
     "requires": {
