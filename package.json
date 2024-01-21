@@ -26,7 +26,7 @@
     "helmet": "^7.1.0",
     "passport": "^0.7.0",
     "passport-azure-ad": "latest",
-    "saml": "^3.0.1",
+    "saml": "https://github.com/skat/node-saml.git",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {

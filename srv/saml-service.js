@@ -2,7 +2,7 @@ const cds = require("@sap/cds");
 const LOG = cds.log("saml-service");
 
 const fs = require("fs");
-var saml = require("saml").Saml20; // or Saml11
+var saml = require("saml").Saml11; // Saml20 or Saml11
 
 module.exports = class SamlService extends cds.Service {
   init() {
@@ -11,7 +11,9 @@ module.exports = class SamlService extends cds.Service {
       key: fs.readFileSync("./certificates/idp.example.com-key.pem").toString(),
       issuer: "https://idp.example.com",
       lifetimeInSeconds: 600,
+      offset: 60,
       audiences: "http://A4H",
+      subjectConfirmationMethod: "sender-vouches",
       attributes: {
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name":
           "Gregor Wolf",
