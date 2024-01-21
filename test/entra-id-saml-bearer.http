@@ -8,10 +8,12 @@ grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 &client_id={{$dotenv client_id}}
 &client_secret={{$dotenv client_secret}}
 # ABAP
-#&scope={{$dotenv ApplicationIDuri}}/.default
-&scope={{$dotenv btp_auth}}/.default
+&scope={{$dotenv ApplicationIDuri}}/.default
+# BTP
+#&scope={{$dotenv btp_auth}}/.default
 &requested_token_use=on_behalf_of
 &requested_token_type=urn:ietf:params:oauth:token-type:saml2
+#&requested_token_type=urn:ietf:params:oauth:token-type:saml1
 
 ### Fill Variables from Response
 @saml_bearer_token = {{requestSAMLBearerToken.response.body.$.access_token}}
