@@ -4,6 +4,8 @@ const LOG = cds.log("saml-service");
 const fs = require("fs");
 var saml = require("saml").Saml11; // Saml20 or Saml11
 
+// Maybe https://github.com/auth0/node-samlp is the better alternative
+
 module.exports = class SamlService extends cds.Service {
   init() {
     var options = {
