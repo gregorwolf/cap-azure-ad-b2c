@@ -27,27 +27,27 @@ spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
     - path: /
-      methods: ["GET", "HEAD" ]
+      methods: ["GET", "HEAD"]
       accessStrategies:
         - handler: allow
       mutators: []
     - path: /config.js
-      methods: ["GET", "HEAD" ]
+      methods: ["GET", "HEAD"]
       accessStrategies:
         - handler: allow
       mutators: []
     - path: /de.linuxdozent.capazure.ui5/.*
-      methods: ["GET", "HEAD" ]
+      methods: ["GET", "HEAD"]
       accessStrategies:
         - handler: allow
       mutators: []
     - path: /v2/public-catalog/.*
-      methods: ["GET", "HEAD" ]
+      methods: ["GET", "HEAD"]
       accessStrategies:
         - handler: allow
       mutators: []
     - path: /v2/catalog/.*
-      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE" ]
+      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE"]
       mutators: []
       accessStrategies:
         - handler: jwt
@@ -57,12 +57,12 @@ spec:
             jwks_urls:
               - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/B2C_1_SignUpAndSignInV2/discovery/v2.0/keys
     - path: /v2/catalog/$metadata
-      methods: ["GET", "HEAD" ]
+      methods: ["GET", "HEAD"]
       accessStrategies:
         - handler: allow
       mutators: []
     - path: /catalog/.*
-      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE" ]
+      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE"]
       mutators: []
       accessStrategies:
         - handler: jwt
@@ -72,7 +72,7 @@ spec:
             jwks_urls:
               - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/B2C_1_SignUpAndSignInV2/discovery/v2.0/keys
     - path: /admin-catalog/.*
-      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE" ]
+      methods: ["GET", "PUT", "POST", "HEAD", "PATCH", "DELETE"]
       mutators: []
       accessStrategies:
         - handler: jwt
@@ -82,37 +82,37 @@ spec:
             jwks_urls:
               - https://cswb2b.b2clogin.com/fd18cc3e-9960-4e35-9076-dba588896ff3/B2C_1_SignUpAndSignInV2/discovery/v2.0/keys
 ---
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: cap-azure-ad-b2c-secret
-    type: opaque
-    stringData:
-      VCAP_SERVICES: >
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cap-azure-ad-b2c-secret
+type: opaque
+stringData:
+  VCAP_SERVICES: >
+    {
+      "azure-ad": [
         {
-          "azure-ad": [
-            {
-              "name": "cap-azure-ad-b2c-csw",
-              "label": "azure-ad",
-              "tags": [
-                "azure-ad"
-              ],
-              "plan": "space",
-              "credentials": {
-                "identityMetadata": "https://cswb2b.b2clogin.com/cswb2b.onmicrosoft.com/B2C_1_SignUpAndSignInV2/v2.0/.well-known/openid-configuration/",
-                "clientID": "ac6f2c18-a2c6-4b5f-9148-13abaaf8e5aa",
-                "policyName": "B2C_1_SignUpAndSignInV2",
-                "isB2C": true,
-                "validateIssuer": true,
-                "loggingLevel": "warn",
-                "loggingNoPII": true,
-                "passReqToCallback": false
-              }
-            }
-          ]
+          "name": "cap-azure-ad-b2c-csw",
+          "label": "azure-ad",
+          "tags": [
+            "azure-ad"
+          ],
+          "plan": "space",
+          "credentials": {
+            "identityMetadata": "https://cswb2b.b2clogin.com/cswb2b.onmicrosoft.com/B2C_1_SignUpAndSignInV2/v2.0/.well-known/openid-configuration/",
+            "clientID": "ac6f2c18-a2c6-4b5f-9148-13abaaf8e5aa",
+            "policyName": "B2C_1_SignUpAndSignInV2",
+            "isB2C": true,
+            "validateIssuer": true,
+            "loggingLevel": "warn",
+            "loggingNoPII": true,
+            "passReqToCallback": false
+          }
         }
+      ]
+    }
 ---
-apiVersion: apps/v1 
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cap-azure-ad-b2c
@@ -134,12 +134,12 @@ spec:
         sidecar.istio.io/inject: "true"
     spec:
       containers:
-      - image: gregorwolf/cap-azure-ad-b2c:latest
-        name: cap-azure-ad-b2c
-        imagePullPolicy: "Always"
-        ports:
-        - containerPort: 4004
-          name: http
-        envFrom:
-        - secretRef:
-            name: cap-azure-ad-b2c-secret
+        - image: gregorwolf/cap-azure-ad-b2c:latest
+          name: cap-azure-ad-b2c
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 4004
+              name: http
+          envFrom:
+            - secretRef:
+                name: cap-azure-ad-b2c-secret
