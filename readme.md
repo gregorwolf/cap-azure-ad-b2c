@@ -97,12 +97,18 @@ Please note that the token in the kubeconfig is [only valid for 8 hours](https:/
 
 To keep this project separate from your other deployments I would suggest to create a namespace:
 
-`kubectl create namespace cap-azure-ad-b2c`
+```bash
+kubectl create namespace cap-azure-ad-b2c
+```
 
 Deploy the configuration:
 
-`kubectl -n cap-azure-ad-b2c apply -f kyma/deployment.yaml`
+```bash
+kubectl -n cap-azure-ad-b2c apply -f kyma/deployment.yaml
+```
 
 Update the container:
 
-`kubectl -n cap-azure-ad-b2c rollout restart deployment/cap-azure-ad-b2c`
+```bash
+kubectl -n cap-azure-ad-b2c rollout restart deployment/cap-azure-ad-b2c
+```
