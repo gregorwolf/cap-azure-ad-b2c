@@ -13,15 +13,15 @@ spec:
     app: cap-azure-ad-b2c
     tier: frontend
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   labels:
     app: cap-azure-ad-b2c
   name: cap-azure-ad-b2c
 spec:
+  host: cap-azure-ad-b2c
   service:
-    host: cap-azure-ad-b2c
     name: cap-azure-ad-b2c
     port: 4004
   gateway: kyma-gateway.kyma-system.svc.cluster.local
