@@ -41,7 +41,7 @@
     "update:root": "npm update",
     "update:app": "cd app/de.linuxdozent.capazure.ui5 && npm update",
     "start:local": "cross-env PORT=6420 cds run",
-    "start": "node node_modules/@sap/cds/bin/cds.js run --in-memory",
+    "start": "node_modules/.bin/cds run --in-memory",
     "start:cds:docker": "docker run -e \"NODE_ENV=production\" --env-file .env -p 6420:4004 --init -t gregorwolf/cap-azure-ad-b2c:latest",
     "build": " run-s build:cds deploy",
     "build:cds": "cds build/all --clean",
