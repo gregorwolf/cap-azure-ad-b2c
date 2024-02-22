@@ -1,21 +1,20 @@
-<Assertion ID="_d7b642b4-e085-4bb0-859f-624af7c21c00" IssueInstant="2024-01-21T09:41:44.576Z"
+<Assertion ID="_5f0a9279-0fc2-443b-ade1-5282a7440400" IssueInstant="2024-02-22T22:29:36.941Z"
   Version="2.0" xmlns="urn:oasis:names:tc:SAML:2.0:assertion">
   <Issuer>https://sts.windows.net/6f8c8b13-6c5b-42e2-8a42-e4ef99e7ff48/</Issuer>
   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
     <SignedInfo>
       <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
       <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
-      <Reference URI="#_d7b642b4-e085-4bb0-859f-624af7c21c00">
+      <Reference URI="#_5f0a9279-0fc2-443b-ade1-5282a7440400">
         <Transforms>
           <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
           <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
         </Transforms>
         <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-        <DigestValue>rvsxEKGMzKauQfgpxYzjNsmGjlcXvcSyyvexKrJ6Qn8=</DigestValue>
+        <DigestValue>Zg9CoGp1/9u8cROeLFZnedzBDpMGdpcyCYjAE4FLqDk=</DigestValue>
       </Reference>
     </SignedInfo>
-    <SignatureValue>
-    </SignatureValue>
+    <SignatureValue></SignatureValue>
     <KeyInfo>
       <X509Data>
         <X509Certificate>
@@ -27,11 +26,11 @@
     <NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">
       gregor@computerservice-wolf.com</NameID>
     <SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-      <SubjectConfirmationData NotOnOrAfter="2024-01-21T10:35:53.451Z"
-        Recipient="https://abapci.dummy.nodomain:50001/sap/saml2/sp/acs/001" />
+      <SubjectConfirmationData NotOnOrAfter="2024-02-22T23:26:14.814Z"
+        Recipient="https://vhcala4hci.dummy.nodomain:50001/sap/saml2/sp/acs/001" />
     </SubjectConfirmation>
   </Subject>
-  <Conditions NotBefore="2024-01-21T09:36:44.451Z" NotOnOrAfter="2024-01-21T10:35:53.451Z">
+  <Conditions NotBefore="2024-02-22T22:24:36.814Z" NotOnOrAfter="2024-02-22T23:26:14.814Z">
     <AudienceRestriction>
       <Audience>http://A4H</Audience>
     </AudienceRestriction>
@@ -66,7 +65,7 @@
       <AttributeValue>gregor@computerservice-wolf.com</AttributeValue>
     </Attribute>
   </AttributeStatement>
-  <AuthnStatement AuthnInstant="2024-01-12T08:54:04.203Z">
+  <AuthnStatement AuthnInstant="2023-10-11T18:51:01.363Z">
     <AuthnContext>
       <AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</AuthnContextClassRef>
     </AuthnContext>
