@@ -14,7 +14,7 @@ grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 #&requested_token_type=urn:ietf:params:oauth:token-type:saml1
 
 ### Fill Variables from Response
-@saml_bearer_token = {{requestSAMLBearerToken.response.body.$.access_token}}
+@saml_bearer_token={{requestSAMLBearerToken.response.body.$.access_token}}
 
 ### Get Access Token from ABAP System
 # @name requestAccessToken
@@ -44,7 +44,7 @@ Content-Type: application/x-www-form-urlencoded
 assertion={{saml_bearer_token}}
 &grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer
 ###
-@access_token_btp = {{requestAccessTokenBTP.response.body.$.access_token}}
+@access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
 #@access_token_btp={{$dotenv token}}
 ### Request Data from SAP BTP
 GET {{$dotenv graph_uri}}/api/{{$dotenv graph_name}}/sap.s4/A_Product
