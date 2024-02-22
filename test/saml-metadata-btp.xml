@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor ID="https___csw-dev.authentication.eu10.hana.ondemand.com"
+  entityID="https://csw-dev.authentication.eu10.hana.ondemand.com"
+  xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">
+  <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <ds:SignedInfo>
+      <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+      <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+      <ds:Reference URI="#https___csw-dev.authentication.eu10.hana.ondemand.com">
+        <ds:Transforms>
+          <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+          <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+        </ds:Transforms>
+        <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+        <ds:DigestValue>I1JzNEhenBAikOhyEM1IWPt24jJsFxI7TyVSHiySjFs=</ds:DigestValue>
+      </ds:Reference>
+    </ds:SignedInfo>
+    <ds:SignatureValue>
+      L0kaWM4XMT6kITuUYu/RnQmyHQdbWc6bsdzrLeoZVHlDnNeQh2jP1LWg2sEdUjC42BRCzKzdw1Efjtl40OJLM2YST++KJW6aCL5Onbp6Gbvd5S26HLH7juCJvUCiMOK4In6EADICytJw1W9kv2D6kQ1BV0ai4SxRpWwGIM3V1OPwrTIn/erJf0E6Y+WIspHdVrCykHBVXqoGfW21e5MJGXg28bZkZUGvyvzJlNrHM71zxn34cJo/fT4POO3hTSGZabvV4rThJduOogVHUVzcCU5TQF3gUWEq+Jbx0PsrxHCYmG7YC1oaL3L8kymJyS1RJwYIBaD/MhyiA1Mlxs7vZA==</ds:SignatureValue>
+    <ds:KeyInfo>
+      <ds:X509Data>
+        <ds:X509Certificate>MIIDEjCCAfqgAwIBAgIGElXjqKNAMA0GCSqGSIb3DQEBCwUAMEAxPjA8BgNVBAMMNWh0dHBzOi8v
+          Y3N3LWRldi5hdXRoZW50aWNhdGlvbi5ldTEwLmhhbmEub25kZW1hbmQuY29tMCAXDTE2MDEwMTAw
+          MDAwMFoYDzIwNTAwMTAxMDAwMDAwWjBAMT4wPAYDVQQDDDVodHRwczovL2Nzdy1kZXYuYXV0aGVu
+          dGljYXRpb24uZXUxMC5oYW5hLm9uZGVtYW5kLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+          AQoCggEBANUzF22mdCraCyMqH2WZ+mLP7pR/Bc7WDLIT2N9u6uisAN1bHvLYHZfM2GIN+kBZ2JmT
+          +PMHhaHx74HpMekciTZX5c09wrJIWprWaiC4mMjU7aK4+TX7BRQnsYkrbdvbgdiUR7zBlFhbQc0Y
+          NJZmHXGb4iErpPsvkKBUsvszgH3wEXYo3pJDlPxiCkTtqeIESphCWCpQugqilFoeoobPRpFB8Wro
+          43Om1pDL7QfF9yoigZ35JcIdKutiFxGC4HqJ6PJoMwQOeu2XrOLlP+oRR2cctjA1ToFsV+I9Et29
+          mssVHIuM/YkKDEd2sjrDAJBZMCnsZ8vDwCZU5SsgHvD1mFcCAwEAAaMQMA4wDAYDVR0TAQH/BAIw
+          ADANBgkqhkiG9w0BAQsFAAOCAQEAYW1zuzjPcGpy3hHgkUHMcrFIfiBJK5Tn+I6xNtO3vBUB+Bty
+          cFWIEHUO1MM9VUhH25UGDqQWCsXbXq3VZaHTjwpBpZYl623Fi1A4KXXcQfGRmKWIHflyQpJjWJ8q
+          Vv44jfpMVye1lOAghclowbpjMXop5YmOuGohFt9PRlJ0l5OYS0g9/vhgLPaFgmsGr41O2Ws5mmvG
+          NwvOBOz/PiXHER9YoP4n4qUA5RT/RPs7IJ4VF2GEVsGU8oiQF8135xRLRowdU/vqXE5eeoG1CMEp
+          jn4vP/+CK0o1+nBq+g3xubbT3Kt3PQBD+X/8gDrYPlF1vqXFeU0G5hkHJVJ1sCzheg==</ds:X509Certificate>
+      </ds:X509Data>
+    </ds:KeyInfo>
+  </ds:Signature>
+  <md:SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true"
+    protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIDEjCCAfqgAwIBAgIGElXjqKNAMA0GCSqGSIb3DQEBCwUAMEAxPjA8BgNVBAMMNWh0dHBzOi8v
+            Y3N3LWRldi5hdXRoZW50aWNhdGlvbi5ldTEwLmhhbmEub25kZW1hbmQuY29tMCAXDTE2MDEwMTAw
+            MDAwMFoYDzIwNTAwMTAxMDAwMDAwWjBAMT4wPAYDVQQDDDVodHRwczovL2Nzdy1kZXYuYXV0aGVu
+            dGljYXRpb24uZXUxMC5oYW5hLm9uZGVtYW5kLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+            AQoCggEBANUzF22mdCraCyMqH2WZ+mLP7pR/Bc7WDLIT2N9u6uisAN1bHvLYHZfM2GIN+kBZ2JmT
+            +PMHhaHx74HpMekciTZX5c09wrJIWprWaiC4mMjU7aK4+TX7BRQnsYkrbdvbgdiUR7zBlFhbQc0Y
+            NJZmHXGb4iErpPsvkKBUsvszgH3wEXYo3pJDlPxiCkTtqeIESphCWCpQugqilFoeoobPRpFB8Wro
+            43Om1pDL7QfF9yoigZ35JcIdKutiFxGC4HqJ6PJoMwQOeu2XrOLlP+oRR2cctjA1ToFsV+I9Et29
+            mssVHIuM/YkKDEd2sjrDAJBZMCnsZ8vDwCZU5SsgHvD1mFcCAwEAAaMQMA4wDAYDVR0TAQH/BAIw
+            ADANBgkqhkiG9w0BAQsFAAOCAQEAYW1zuzjPcGpy3hHgkUHMcrFIfiBJK5Tn+I6xNtO3vBUB+Bty
+            cFWIEHUO1MM9VUhH25UGDqQWCsXbXq3VZaHTjwpBpZYl623Fi1A4KXXcQfGRmKWIHflyQpJjWJ8q
+            Vv44jfpMVye1lOAghclowbpjMXop5YmOuGohFt9PRlJ0l5OYS0g9/vhgLPaFgmsGr41O2Ws5mmvG
+            NwvOBOz/PiXHER9YoP4n4qUA5RT/RPs7IJ4VF2GEVsGU8oiQF8135xRLRowdU/vqXE5eeoG1CMEp
+            jn4vP/+CK0o1+nBq+g3xubbT3Kt3PQBD+X/8gDrYPlF1vqXFeU0G5hkHJVJ1sCzheg==</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:KeyDescriptor use="encryption">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIDEjCCAfqgAwIBAgIGElXjqKNAMA0GCSqGSIb3DQEBCwUAMEAxPjA8BgNVBAMMNWh0dHBzOi8v
+            Y3N3LWRldi5hdXRoZW50aWNhdGlvbi5ldTEwLmhhbmEub25kZW1hbmQuY29tMCAXDTE2MDEwMTAw
+            MDAwMFoYDzIwNTAwMTAxMDAwMDAwWjBAMT4wPAYDVQQDDDVodHRwczovL2Nzdy1kZXYuYXV0aGVu
+            dGljYXRpb24uZXUxMC5oYW5hLm9uZGVtYW5kLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+            AQoCggEBANUzF22mdCraCyMqH2WZ+mLP7pR/Bc7WDLIT2N9u6uisAN1bHvLYHZfM2GIN+kBZ2JmT
+            +PMHhaHx74HpMekciTZX5c09wrJIWprWaiC4mMjU7aK4+TX7BRQnsYkrbdvbgdiUR7zBlFhbQc0Y
+            NJZmHXGb4iErpPsvkKBUsvszgH3wEXYo3pJDlPxiCkTtqeIESphCWCpQugqilFoeoobPRpFB8Wro
+            43Om1pDL7QfF9yoigZ35JcIdKutiFxGC4HqJ6PJoMwQOeu2XrOLlP+oRR2cctjA1ToFsV+I9Et29
+            mssVHIuM/YkKDEd2sjrDAJBZMCnsZ8vDwCZU5SsgHvD1mFcCAwEAAaMQMA4wDAYDVR0TAQH/BAIw
+            ADANBgkqhkiG9w0BAQsFAAOCAQEAYW1zuzjPcGpy3hHgkUHMcrFIfiBJK5Tn+I6xNtO3vBUB+Bty
+            cFWIEHUO1MM9VUhH25UGDqQWCsXbXq3VZaHTjwpBpZYl623Fi1A4KXXcQfGRmKWIHflyQpJjWJ8q
+            Vv44jfpMVye1lOAghclowbpjMXop5YmOuGohFt9PRlJ0l5OYS0g9/vhgLPaFgmsGr41O2Ws5mmvG
+            NwvOBOz/PiXHER9YoP4n4qUA5RT/RPs7IJ4VF2GEVsGU8oiQF8135xRLRowdU/vqXE5eeoG1CMEp
+            jn4vP/+CK0o1+nBq+g3xubbT3Kt3PQBD+X/8gDrYPlF1vqXFeU0G5hkHJVJ1sCzheg==</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+      Location="https://csw-dev.authentication.eu10.hana.ondemand.com/saml/SingleLogout/alias/csw-dev.aws-live-eu10" />
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+      Location="https://csw-dev.authentication.eu10.hana.ondemand.com/saml/SingleLogout/alias/csw-dev.aws-live-eu10" />
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</md:NameIDFormat>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+      Location="https://csw-dev.authentication.eu10.hana.ondemand.com/saml/SSO/alias/csw-dev.aws-live-eu10"
+      index="0" isDefault="true" />
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:URI"
+      Location="https://csw-dev.authentication.eu10.hana.ondemand.com/oauth/token/alias/csw-dev.aws-live-eu10"
+      index="1" />
+  </md:SPSSODescriptor>
+</md:EntityDescriptor>
