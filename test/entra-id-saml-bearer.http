@@ -45,6 +45,14 @@ assertion={{saml_bearer_token}}
 &grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer
 ###
 @access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
+@refresh_token_btp={{requestAccessTokenBTP.response.body.$.refresh_token}}
+### Use Refresh Token
+POST {{$dotenv ApplicationIDuri}}{{$dotenv btp_auth_path}}
+Authorization: Basic {{$dotenv btp_clientid}}:{{$dotenv btp_clientsecret}}
+Content-Type: application/x-www-form-urlencoded
+
+refresh_token={{refresh_token_btp}}
+&grant_type=refresh_token
 #@access_token_btp={{$dotenv token}}
 ### Request Data from SAP BTP
 GET {{$dotenv graph_uri}}/api/{{$dotenv graph_name}}/sap.s4/A_Product
