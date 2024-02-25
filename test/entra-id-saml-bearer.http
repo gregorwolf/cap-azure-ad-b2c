@@ -56,3 +56,7 @@ Authorization: Bearer {{access_token_btp}}
 ### https://github.com/gregorwolf/ZAPI_USER_NAME
 GET {{$dotenv graph_uri}}/api/{{$dotenv graph_name}}/my.erp.usr/UserdetailsSet
 Authorization: Bearer {{access_token_btp}}
+###
+GET {{$dotenv graph_uri}}/api/{{$dotenv graph_name}}/my.a4h.epm/Suppliers
+  ?$top=10
+Authorization: Bearer {{access_token_btp}}
