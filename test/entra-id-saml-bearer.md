@@ -1,6 +1,6 @@
 # OAuth SAML Bearer Assertion Flow
 
-::: mermaid
+```mermaid
 sequenceDiagram
 %% participants
 participant User as User
@@ -28,4 +28,4 @@ XSUAA->>WebApp: Provides BTS JWT
 WebApp->>BTPApp: Sends request with BTS JWT as Authorization Header
 BTPApp->>WebApp: Response with Application data
 WebApp->>User: Forward Application Data
-:::
+```
