@@ -12,8 +12,8 @@ participant XSUAA as SAP BTP Authentication
 participant BTPApp as SAP BTP Application
 %% arrows
 loop Setup
-WebApp-->>IdP: Trust Configuration
-IdP-->>XSUAA: Trust Configuration
+WebApp-->IdP: Trust Configuration
+IdP-->XSUAA: Trust Configuration
 end
 User->>WebApp: Open App
 WebApp->>IdP: Requests User Authentication
@@ -41,12 +41,11 @@ participant User as User
 participant WebApp as Web Application
 participant IdP as Identity Provider
 participant SAPIAS as SAP Identity Authentication Service
-participant XSUAA as SAP BTP Authentication
 participant BTPApp as SAP BTP Application
 %% arrows
 loop Setup
-WebApp-->>IdP: Trust Configuration
-IdP-->>XSUAA: Trust Configuration
+WebApp-->IdP: Trust Configuration
+IdP-->SAPIAS: Trust Configuration
 end
 User->>WebApp: Open App
 WebApp->>IdP: Requests User Authentication
@@ -56,6 +55,7 @@ IdP->>WebApp: Provides JWT
 WebApp->>User: Session Cookie
 User->>WebApp: Request to SAP
 WebApp->>SAPIAS: Requests BTP JWT with JWT
+SAPIAS->>SAPIAS: Validates JWT Assertion
 SAPIAS->>WebApp: Provides BTP JTW
 WebApp->>BTPApp: Sends request with BTP JWT as Authorization Header
 BTPApp->>WebApp: Response with Application data
