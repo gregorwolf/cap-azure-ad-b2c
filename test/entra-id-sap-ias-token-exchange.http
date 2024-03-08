@@ -1,0 +1,56 @@
+### Does not work when MFA / 2FA is enabled
+# @name getUserAccessToken
+POST https://login.microsoftonline.com/{{$dotenv tenant}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{$dotenv client_id}}
+&client_secret={{$dotenv client_secret}}
+&scope=user.read openid profile offline_access
+&username={{$dotenv mail}}
+&password={{$dotenv password}}
+&grant_type=password
+###
+@access_token={{getUserAccessToken.response.body.$.access_token}}
+@id_token={{getUserAccessToken.response.body.$.id_token}}
+### Get Access Token from SAP Identity Authentication Service (IAS)
+# @name requestAccessTokenIAS
+POST {{$dotenv ias_base_url}}/oauth2/token
+Authorization: Basic {{$dotenv ias_client_id}}:{{$dotenv ias_client_secret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{id_token}}
+&client_id={{$dotenv ias_client_id}}
+&client_secret={{$dotenv ias_client_secret}}
+###
+@access_token_ias={{requestAccessTokenIAS.response.body.$.access_token}}
+@id_token_ias={{requestAccessTokenIAS.response.body.$.id_token}}
+### Get Access Token from SAP BTP
+# @name requestAccessTokenBTP
+POST {{$dotenv ApplicationIDuri}}/oauth/token
+Authorization: Basic {{$dotenv btp_clientid}}:{{$dotenv btp_clientsecret}}
+Content-Type: application/x-www-form-urlencoded
+
+assertion={{id_token_ias}}
+&grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&client_id={{$dotenv btp_clientid}}
+&client_secret={{$dotenv btp_clientsecret}}
+###
+@access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
+### Read User Details based on OData Service
+### https://github.com/gregorwolf/ZAPI_USER_NAME
+GET {{$dotenv graph_uri}}/api/{{$dotenv graph_name}}/my.a4h.user/UserDetailsSet
+Authorization: Bearer {{access_token_btp}}
+###
+GET {{$dotenv btp_mtx_srv}}/odata/v4/catalog/Books
+  ?$filter=IsActiveEntity eq false
+Authorization: Bearer {{access_token_btp}}
+###
+POST {{$dotenv btp_mtx_srv}}/odata/v4/catalog/Books
+Authorization: Bearer {{access_token_btp}}
+Content-Type: application/json
+
+{
+  "title": "Per Anhalter durch die Galaxis",
+  "stock": 500
+}
