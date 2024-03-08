@@ -1,3 +1,14 @@
+### Does not work when MFA / 2FA is enabled
+# @name getUserAccessToken
+POST https://login.microsoftonline.com/{{$dotenv tenant}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{$dotenv client_id}}
+&scope=user.read openid profile offline_access
+&client_secret={{$dotenv client_secret}}
+&username={{$dotenv mail}}
+&password={{$dotenv password}}
+&grant_type=password
 ### 
 # @name getAccessToken
 POST https://login.microsoftonline.com/{{$dotenv tenant}}/oauth2/v2.0/token
