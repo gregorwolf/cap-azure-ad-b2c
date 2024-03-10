@@ -1,4 +1,5 @@
-### Does not work when MFA / 2FA is enabled
+# Authenticate to Microsoft Entra ID or Azure AD B2C
+# Does not work when MFA / 2FA is enabled
 # @name getUserAccessToken
 POST https://login.microsoftonline.com/{{$dotenv tenant}}/oauth2/v2.0/token
 Content-Type: application/x-www-form-urlencoded
@@ -9,7 +10,7 @@ client_id={{$dotenv client_id}}
 &username={{$dotenv mail}}
 &password={{$dotenv password}}
 &grant_type=password
-###
+### Write response into local variables
 @access_token={{getUserAccessToken.response.body.$.access_token}}
 @id_token={{getUserAccessToken.response.body.$.id_token}}
 ### Get Access Token from SAP Identity Authentication Service (IAS)
@@ -20,12 +21,10 @@ Content-Type: application/x-www-form-urlencoded
 
 grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 &assertion={{id_token}}
-&client_id={{$dotenv ias_client_id}}
-&client_secret={{$dotenv ias_client_secret}}
-###
+### Write response into local variables
 @access_token_ias={{requestAccessTokenIAS.response.body.$.access_token}}
 @id_token_ias={{requestAccessTokenIAS.response.body.$.id_token}}
-### Get Access Token from SAP BTP
+### Get Access Token from SAP BTP XSUAA
 # @name requestAccessTokenBTP
 POST {{$dotenv ApplicationIDuri}}/oauth/token
 Authorization: Basic {{$dotenv btp_clientid}}:{{$dotenv btp_clientsecret}}
@@ -33,17 +32,17 @@ Content-Type: application/x-www-form-urlencoded
 
 assertion={{id_token_ias}}
 &grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
-&client_id={{$dotenv btp_clientid}}
-&client_secret={{$dotenv btp_clientsecret}}
-###
+### Write response into local variables
 @access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
+### Calls SAP Graph API to get User Details
 ### Read User Details based on OData Service
 ### https://github.com/gregorwolf/ZAPI_USER_NAME
 GET {{$dotenv graph_uri}}/api/{{$dotenv graph_name}}/my.a4h.user/UserDetailsSet
 Authorization: Bearer {{access_token_btp}}
-###
+### Call OData Service of Multitenant Application 
+### https://github.com/gregorwolf/mtxs-bookshop
 GET {{$dotenv btp_mtx_srv}}/odata/v4/catalog/Books
-  ?$filter=IsActiveEntity eq false
+  ?$filter=IsActiveEntity eq false or IsActiveEntity eq true
 Authorization: Bearer {{access_token_btp}}
 ###
 POST {{$dotenv btp_mtx_srv}}/odata/v4/catalog/Books
