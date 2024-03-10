@@ -32,36 +32,6 @@ BTPApp->>WebApp: Response with Application data
 WebApp->>User: Forward Application Data
 ```
 
-## OAuth Token Exchange Flow
-
-```mermaid
-sequenceDiagram
-%% participants
-participant User as User
-participant WebApp as Web Application
-participant IdP as Identity Provider
-participant SAPIAS as SAP Identity Authentication Service
-participant BTPApp as SAP BTP Application
-%% arrows
-loop Setup
-WebApp-->IdP: Trust Configuration
-IdP-->SAPIAS: Trust Configuration
-end
-User->>WebApp: Open App
-WebApp->>IdP: Requests User Authentication
-IdP->>User: Ask User for credentials and other factors
-User->>IdP: Provides credentials and other factors
-IdP->>WebApp: Provides JWT
-WebApp->>User: Session Cookie
-User->>WebApp: Request to SAP
-WebApp->>SAPIAS: Requests BTP JWT with JWT
-SAPIAS->>SAPIAS: Validates JWT Assertion
-SAPIAS->>WebApp: Provides BTP JTW
-WebApp->>BTPApp: Sends request with BTP JWT as Authorization Header
-BTPApp->>WebApp: Response with Application data
-WebApp->>User: Forward Application Data
-```
-
 ## Embed SAP BTP App in Web Application
 
 ```mermaid
