@@ -1,0 +1,3 @@
+###
+GET https://csw-apim.azure-api.net/sap-s4c-cust-mat/A_CustomerMaterial
+Ocp-Apim-Subscription-Key: {{$dotenv Ocp-Apim-Subscription-Key}}
