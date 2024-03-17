@@ -38,10 +38,8 @@ https://github.com/MartinPankraz/AzureSAPODataReader/blob/master/Templates/Updat
 <policies>
   <inbound>
     <base />
-    <validate-jwt header-name="Authorization" failed-validation-httpcode="401"
-      require-scheme="Bearer">
-      <openid-config
-        url="https://login.microsoftonline.com/{{AADTenantId}}/.well-known/openid-configuration" />
+    <validate-jwt header-name="Authorization" failed-validation-httpcode="401" require-scheme="Bearer">
+      <openid-config url="https://login.microsoftonline.com/{{AADTenantId}}/.well-known/openid-configuration" />
       <audiences>
         <audience>api://{{APIMAADRegisteredAppClientId}}</audience>
       </audiences>
@@ -55,44 +53,47 @@ https://github.com/MartinPankraz/AzureSAPODataReader/blob/master/Templates/Updat
       </required-claims>
     </validate-jwt>
     <set-variable name="APIMAADRegisteredAppClientId" value="{{APIMAADRegisteredAppClientId}}" />
-    <set-variable name="APIMAADRegisteredAppClientSecret"
-      value="{{APIMAADRegisteredAppClientSecret}}" />
+    <set-variable name="APIMAADRegisteredAppClientSecret" value="{{APIMAADRegisteredAppClientSecret}}" />
     <set-variable name="AADSAPResource" value="{{AADSAPResource}}" />
     <set-variable name="SAPOAuthClientID" value="{{SAPOAuthClientID}}" />
     <set-variable name="SAPOAuthClientSecret" value="{{SAPOAuthClientSecret}}" />
     <set-variable name="SAPOAuthScope" value="{{SAPOAuthScope}}" />
     <set-variable name="SAPOAuthRefreshExpiry" value="{{SAPOAuthRefreshExpiry}}" />
     <!-- check APIM cache for existing user SAP and refresh token for OData service -->
-    <cache-lookup-value key="@(" SAPPrincipal" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)" variable-name="SAPBearerToken" />
-    <cache-lookup-value key="@(" SAPPrincipalRefresh" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)" variable-name="SAPRefreshToken" />
+    <cache-lookup-value
+      key="@(" SAPPrincipal" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)"
+      variable-name="SAPBearerToken" />
+    <cache-lookup-value
+      key="@(" SAPPrincipalRefresh" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)"
+      variable-name="SAPRefreshToken" />
     <choose>
       <!-- if SAP token is not in cache and also no refresh token available, get it from AAD and
       store both in cache -->
-      <when condition="@(!context.Variables.ContainsKey(" SAPBearerToken") && !context.Variables.ContainsKey(" SAPRefreshToken"))">
+      <when
+        condition="@(!context.Variables.ContainsKey(" SAPBearerToken") && !context.Variables.ContainsKey(" SAPRefreshToken"))">
         <!-- Exchange AAD Bearer token for AAD issued SAML token on behalf of logged in user -->
-        <send-request mode="new" response-variable-name="fetchSAMLAssertion" timeout="10"
-          ignore-error="false">
+        <send-request mode="new" response-variable-name="fetchSAMLAssertion" timeout="10" ignore-error="false">
           <set-url>https://login.microsoftonline.com/{{AADTenantId}}/oauth2/v2.0/token</set-url>
           <set-method>POST</set-method>
           <set-header name="Content-Type" exists-action="override">
             <value>application/x-www-form-urlencoded</value>
           </set-header>
           <set-body>@{
-            var _AADRegisteredAppClientId = context.Variables["APIMAADRegisteredAppClientId"];
-            var _AADRegisteredAppClientSecret =
-            context.Variables["APIMAADRegisteredAppClientSecret"];
-            var _AADSAPResource = context.Variables["AADSAPResource"];
-            var assertion =
-            context.Request.Headers.GetValueOrDefault("Authorization","").Replace("Bearer ","");
-            return
-            $"grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion={assertion}&client_id={_AADRegisteredAppClientId}&client_secret={_AADRegisteredAppClientSecret}&scope={_AADSAPResource}/.default&requested_token_use=on_behalf_of&requested_token_type=urn:ietf:params:oauth:token-type:saml2";
+              var _AADRegisteredAppClientId = context.Variables["APIMAADRegisteredAppClientId"];
+              var _AADRegisteredAppClientSecret =
+              context.Variables["APIMAADRegisteredAppClientSecret"];
+              var _AADSAPResource = context.Variables["AADSAPResource"];
+              var assertion =
+              context.Request.Headers.GetValueOrDefault("Authorization", "").Replace("Bearer ", "");
+              return
+              $"grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion={assertion}&client_id={_AADRegisteredAppClientId}&client_secret={_AADRegisteredAppClientSecret}&scope={_AADSAPResource}/.default&requested_token_use=on_behalf_of&requested_token_type=urn:ietf:params:oauth:token-type:saml2";
             }</set-body>
         </send-request>
-        <set-variable name="accessToken" value="@((string)((IResponse)context.Variables[" fetchSAMLAssertion"]).Body.As<JObject>()[" access_token"])" />
+        <set-variable name="accessToken"
+          value="@((string)((IResponse)context.Variables[" fetchSAMLAssertion"]).Body.As<JObject>()[" access_token"])" />
         <!-- Get SAP backend issued Bearer token for presented AAD issued SAML token using
         OAuth2SAMLBearerAssertion flow. -->
-        <send-request mode="new" response-variable-name="fetchSAPBearer" timeout="10"
-          ignore-error="false">
+        <send-request mode="new" response-variable-name="fetchSAPBearer" timeout="10" ignore-error="false">
           <set-url>
             https://{{SAPOAuthServerAdressForTokenEndpoint}}/oauth/token/alias/csw-dev.aws-live-eu10</set-url>
           <set-method>POST</set-method>
@@ -103,26 +104,31 @@ https://github.com/MartinPankraz/AzureSAPODataReader/blob/master/Templates/Updat
           your individual configuration -->
           <set-header name="Authorization" exists-action="override">
             <value>@{
-              var _SAPOAuthClientID = context.Variables["SAPOAuthClientID"];
-              var _SAPOAuthClientSecret = context.Variables["SAPOAuthClientSecret"];
-              return "Basic " +
-              Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_SAPOAuthClientID}:{_SAPOAuthClientSecret}"));
+                var _SAPOAuthClientID = context.Variables["SAPOAuthClientID"];
+                var _SAPOAuthClientSecret = context.Variables["SAPOAuthClientSecret"];
+                return "Basic " +
+                Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_SAPOAuthClientID}:{_SAPOAuthClientSecret}"));
               }</value>
           </set-header>
           <!--  Don't expose APIM subscription key to the backend. -->
           <set-header name="Ocp-Apim-Subscription-Key" exists-action="delete" />
           <set-body>@{
-            var assertion2 = context.Variables["accessToken"];
-            return
-            $"grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer&assertion={assertion2}";
+              var assertion2 = context.Variables["accessToken"];
+              return
+              $"grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer&assertion={assertion2}";
             }</set-body>
         </send-request>
         <!-- Remember SAP Bearer tokens, deal with dictionary of objects -->
-        <set-variable name="SAPResponseObject" value="@(((IResponse)context.Variables[" fetchSAPBearer"]).Body.As<JObject>())" />
-        <set-variable name="SAPBearerTokenExpiry" value="@(((JObject)context.Variables[" SAPResponseObject"])[" expires_in"].ToString())" />
-        <set-variable name="iSAPBearerTokenExpiry" value="@(int.Parse((string)context.Variables[" SAPBearerTokenExpiry"]))" />
-        <set-variable name="SAPBearerToken" value="@(((JObject)context.Variables[" SAPResponseObject"])[" access_token"].ToString())" />
-        <set-variable name="SAPRefreshToken" value="@(((JObject)context.Variables[" SAPResponseObject"])[" refresh_token"].ToString())" />
+        <set-variable name="SAPResponseObject"
+          value="@(((IResponse)context.Variables[" fetchSAPBearer"]).Body.As<JObject>())" />
+        <set-variable name="SAPBearerTokenExpiry"
+          value="@(((JObject)context.Variables[" SAPResponseObject"])[" expires_in"].ToString())" />
+        <set-variable name="iSAPBearerTokenExpiry"
+          value="@(int.Parse((string)context.Variables[" SAPBearerTokenExpiry"]))" />
+        <set-variable name="SAPBearerToken"
+          value="@(((JObject)context.Variables[" SAPResponseObject"])[" access_token"].ToString())" />
+        <set-variable name="SAPRefreshToken"
+          value="@(((JObject)context.Variables[" SAPResponseObject"])[" refresh_token"].ToString())" />
         <!-- take random time off the actual expiry to avoid login bursts (clustered expired
         tokens). Assuming a third of the total expiry as lower boundary -->
         <set-variable name="RandomBackOffDelay"
@@ -130,28 +136,32 @@ https://github.com/MartinPankraz/AzureSAPODataReader/blob/master/Templates/Updat
         <!--cache
         Bearer and refresh token till expiry. We recommend 36 hours to mitigate "morning" login
         bursts efficiently. -->
-        <cache-store-value key="@(" SAPPrincipal" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)" value="@((string)context.Variables[" SAPBearerToken"])"
+        <cache-store-value
+          key="@(" SAPPrincipal" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)"
+          value="@((string)context.Variables[" SAPBearerToken"])"
           duration="@((int)context.Variables[" iSAPBearerTokenExpiry"]  - (int)context.Variables[" RandomBackOffDelay"])" />
         <!-- optionally store duration for diagnostics endpoint
                 <cache-store-value key="@("SAPBearerDuration" +
-        context.Request.Headers.GetValueOrDefault("Authorization","").AsJwt()?.Subject)"
+        context.Request.Headers.GetValueOrDefault("Authorization", "").AsJwt()?.Subject)"
         value="@((int)context.Variables["iSAPBearerTokenExpiry"] -
         (int)context.Variables["RandomBackOffDelay"])" duration="3600" />-->
         <!-- verify refresh token expiry on SOAUTH2 transaction at SAP backend. We assume long
         lifetime and assign 10 times more by default. -->
-        <cache-store-value key="@(" SAPPrincipalRefresh" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)" value="@((string)context.Variables[" SAPRefreshToken"])"
+        <cache-store-value
+          key="@(" SAPPrincipalRefresh" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)"
+          value="@((string)context.Variables[" SAPRefreshToken"])"
           duration="@(int.Parse((string)context.Variables[" SAPOAuthRefreshExpiry"]) - (int)context.Variables[" RandomBackOffDelay"])" />
         <!-- optionally store duration for diagnostics endpoint
                 <cache-store-value key="@("SAPRefreshDuration" +
-        context.Request.Headers.GetValueOrDefault("Authorization","").AsJwt()?.Subject)"
+        context.Request.Headers.GetValueOrDefault("Authorization", "").AsJwt()?.Subject)"
         value="@(int.Parse((string)context.Variables["SAPOAuthRefreshExpiry"]) -
         (int)context.Variables["RandomBackOffDelay"])" duration="3600" />-->
       </when>
       <!-- if no SAP bearer token is available but a valid refresh token is present, use it to get a
       new bearer token -->
-      <when condition="@(!context.Variables.ContainsKey(" SAPBearerToken") && context.Variables.ContainsKey(" SAPRefreshToken"))">
-        <send-request mode="new" response-variable-name="fetchrefreshedSAPBearer" timeout="10"
-          ignore-error="false">
+      <when
+        condition="@(!context.Variables.ContainsKey(" SAPBearerToken") && context.Variables.ContainsKey(" SAPRefreshToken"))">
+        <send-request mode="new" response-variable-name="fetchrefreshedSAPBearer" timeout="10" ignore-error="false">
           <set-url>
             https://{{SAPOAuthServerAdressForTokenEndpoint}}/oauth/token/alias/csw-dev.aws-live-eu10</set-url>
           <set-method>POST</set-method>
@@ -162,26 +172,31 @@ https://github.com/MartinPankraz/AzureSAPODataReader/blob/master/Templates/Updat
           your individual configuration -->
           <set-header name="Authorization" exists-action="override">
             <value>@{
-              var _SAPOAuthClientID = context.Variables["SAPOAuthClientID"];
-              var _SAPOAuthClientSecret = context.Variables["SAPOAuthClientSecret"];
-              return "Basic " +
-              Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_SAPOAuthClientID}:{_SAPOAuthClientSecret}"));
+                var _SAPOAuthClientID = context.Variables["SAPOAuthClientID"];
+                var _SAPOAuthClientSecret = context.Variables["SAPOAuthClientSecret"];
+                return "Basic " +
+                Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_SAPOAuthClientID}:{_SAPOAuthClientSecret}"));
               }</value>
           </set-header>
           <set-body>@{
-            var _SAPOAuthClientID = context.Variables["SAPOAuthClientID"];
-            var _SAPOAuthScope = context.Variables["SAPOAuthScope"];
-            var _refreshToken = context.Variables["SAPRefreshToken"];
-            return $"grant_type=refresh_token&refresh_token={_refreshToken}";
+              var _SAPOAuthClientID = context.Variables["SAPOAuthClientID"];
+              var _SAPOAuthScope = context.Variables["SAPOAuthScope"];
+              var _refreshToken = context.Variables["SAPRefreshToken"];
+              return $"grant_type=refresh_token&refresh_token={_refreshToken}";
             }</set-body>
         </send-request>
         <!-- Remember SAP Bearer tokens. Consider handling http 400 Bad Request for invalid Refresh
         tokens -->
-        <set-variable name="SAPRefreshedResponseObject" value="@(((IResponse)context.Variables[" fetchrefreshedSAPBearer"]).Body.As<JObject>())" />
-        <set-variable name="SAPBearerTokenExpiry" value="@(((JObject)context.Variables[" SAPRefreshedResponseObject"])[" expires_in"].ToString())" />
-        <set-variable name="iSAPBearerTokenExpiry" value="@(int.Parse((string)context.Variables[" SAPBearerTokenExpiry"]))" />
-        <set-variable name="SAPBearerToken" value="@(((JObject)context.Variables[" SAPRefreshedResponseObject"])[" access_token"].ToString())" />
-        <set-variable name="SAPRefreshToken" value="@(((JObject)context.Variables[" SAPRefreshedResponseObject"])[" refresh_token"].ToString())" />
+        <set-variable name="SAPRefreshedResponseObject"
+          value="@(((IResponse)context.Variables[" fetchrefreshedSAPBearer"]).Body.As<JObject>())" />
+        <set-variable name="SAPBearerTokenExpiry"
+          value="@(((JObject)context.Variables[" SAPRefreshedResponseObject"])[" expires_in"].ToString())" />
+        <set-variable name="iSAPBearerTokenExpiry"
+          value="@(int.Parse((string)context.Variables[" SAPBearerTokenExpiry"]))" />
+        <set-variable name="SAPBearerToken"
+          value="@(((JObject)context.Variables[" SAPRefreshedResponseObject"])[" access_token"].ToString())" />
+        <set-variable name="SAPRefreshToken"
+          value="@(((JObject)context.Variables[" SAPRefreshedResponseObject"])[" refresh_token"].ToString())" />
         <!-- take random time off the actual expiry to avoid login bursts (clustered expired
         tokens). Assuming a third of the total expiry as lower boundary -->
         <set-variable name="RandomBackOffDelay"
@@ -189,20 +204,24 @@ https://github.com/MartinPankraz/AzureSAPODataReader/blob/master/Templates/Updat
         <!--cache
         Bearer and refresh token till expiry. We recommend 36 hours to mitigate "morning" login
         bursts efficiently. -->
-        <cache-store-value key="@(" SAPPrincipal" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)" value="@((string)context.Variables[" SAPBearerToken"])"
+        <cache-store-value
+          key="@(" SAPPrincipal" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)"
+          value="@((string)context.Variables[" SAPBearerToken"])"
           duration="@((int)context.Variables[" iSAPBearerTokenExpiry"] - (int)context.Variables[" RandomBackOffDelay"])" />
         <!-- optionally store duration for diagnostics endpoint
                 <cache-store-value key="@("SAPBearerDuration" +
-        context.Request.Headers.GetValueOrDefault("Authorization","").AsJwt()?.Subject)"
+        context.Request.Headers.GetValueOrDefault("Authorization", "").AsJwt()?.Subject)"
         value="@((int)context.Variables["iSAPBearerTokenExpiry"] -
         (int)context.Variables["RandomBackOffDelay"])" duration="3600" />-->
         <!-- verify refresh token expiry on SOAUTH2 transaction at SAP backend. We assume long
         lifetime and assign 10 times more by default. -->
-        <cache-store-value key="@(" SAPPrincipalRefresh" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)" value="@((string)context.Variables[" SAPRefreshToken"])"
+        <cache-store-value
+          key="@(" SAPPrincipalRefresh" + context.Request.Headers.GetValueOrDefault(" Authorization","").AsJwt()?.Subject)"
+          value="@((string)context.Variables[" SAPRefreshToken"])"
           duration="@(int.Parse((string)context.Variables[" SAPOAuthRefreshExpiry"]) - (int)context.Variables[" RandomBackOffDelay"])" />
         <!-- optionally store duration for diagnostics endpoint 
                 <cache-store-value key="@("SAPRefreshDuration" +
-        context.Request.Headers.GetValueOrDefault("Authorization","").AsJwt()?.Subject)"
+        context.Request.Headers.GetValueOrDefault("Authorization", "").AsJwt()?.Subject)"
         value="@(int.Parse((string)context.Variables["SAPOAuthRefreshExpiry"]) -
         (int)context.Variables["RandomBackOffDelay"])" duration="3600" />-->
       </when>
@@ -213,8 +232,7 @@ https://github.com/MartinPankraz/AzureSAPODataReader/blob/master/Templates/Updat
       <when condition="@(context.Request.Method != " GET" && context.Request.Method != " HEAD")">
         <!-- Creating a HEAD subrequest to save request overhead and get the SAP CSRF token and
         cookie.-->
-        <send-request mode="new" response-variable-name="SAPCSRFToken" timeout="10"
-          ignore-error="false">
+        <send-request mode="new" response-variable-name="SAPCSRFToken" timeout="10" ignore-error="false">
           <set-url>@(context.Request.Url.ToString())</set-url>
           <set-method>HEAD</set-method>
           <set-header name="X-CSRF-Token" exists-action="override">
@@ -234,18 +252,20 @@ https://github.com/MartinPankraz/AzureSAPODataReader/blob/master/Templates/Updat
             </set-header>
             <set-header name="Cookie" exists-action="override">
               <value>@{
-                string rawcookie =
-                ((IResponse)context.Variables["SAPCSRFToken"]).Headers.GetValueOrDefault("Set-Cookie");
-                string[] cookies = rawcookie.Split(';');
-                /* new session sends a XSRF cookie */
-                string xsrftoken = cookies.FirstOrDefault( ss => ss.Contains("sap-XSRF"));
-                /* existing sessions sends a SessionID. No other cases anticipated at this point.
-                Please create a GitHub Pull-Request if you encounter uncovered settings. */
-                if(xsrftoken == null){
-                xsrftoken = cookies.FirstOrDefault( ss => ss.Contains("SAP_SESSIONID"));
-                }
+                  string rawcookie =
+                  ((IResponse)context.Variables["SAPCSRFToken"]).Headers.GetValueOrDefault("Set-Cookie");
+                  string[] cookies = rawcookie.Split(';');
+                  /* new session sends a XSRF cookie */
+                  string xsrftoken = cookies.FirstOrDefault(ss => ss.Contains("sap-XSRF"));
+                  /* existing sessions sends a SessionID. No other cases anticipated at this point.
+                  Please create a GitHub Pull-Request if you encounter uncovered settings. */
+                  if (xsrftoken == null)
+                  {
+                    xsrftoken = cookies.FirstOrDefault(ss => ss.Contains("SAP_SESSIONID"));
+                  }
 
-                return xsrftoken.Split(',')[1];}</value>
+                  return xsrftoken.Split(',')[1];
+                }</value>
             </set-header>
           </when>
         </choose>
