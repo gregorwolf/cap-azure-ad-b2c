@@ -11,14 +11,17 @@ sequenceDiagram
 participant User as User
 participant WebApp as Web Application
 participant IdP as Identity Provider
-participant SAPIAS as SAP Identity Authentication Service
-participant XSUAA as SAP BTP Authentication
+participant SAPIAS as SAP Identity Authentication Service (IAS)
+participant XSUAA as SAP BTP Authentication (XSUAA)
 participant BTPApp as SAP BTP Application
 %% arrows
 loop Setup
 WebApp-->IdP: Trust Configuration
 IdP-->SAPIAS: Trust Configuration
 SAPIAS-->XSUAA: Trust Configuration
+IdP->>WebApp: Provide Client ID and Secret
+SAPIAS->>WebApp: Provide Client ID and Secret
+XSUAA->>WebApp: Provide Client ID and Secret
 end
 User->>WebApp: Open App
 WebApp->>IdP: Requests User Authentication
@@ -27,10 +30,10 @@ User->>IdP: Provides credentials and other factors
 IdP->>WebApp: Provides JWT
 WebApp->>User: Session Cookie
 User->>WebApp: Request to SAP
-WebApp->>SAPIAS: Requests SAP IAS JWT with JWT
+WebApp->>SAPIAS: Requests SAP IAS JWT with JWT, Client ID and Secret of IAS
 SAPIAS->>SAPIAS: Validates JWT
 SAPIAS->>WebApp: Provides SAP IAS JTW
-WebApp->>XSUAA: Requests BTP JWT with SAP IAS JTW
+WebApp->>XSUAA: Requests BTP JWT with SAP IAS JTW, Client ID and Secret of XSUAA
 XSUAA->>XSUAA: Validates SAP IAS JTW
 XSUAA->>WebApp: Provides BTP JTW
 WebApp->>BTPApp: Sends request with BTP JWT as Authorization Header
