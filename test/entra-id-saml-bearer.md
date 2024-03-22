@@ -8,7 +8,7 @@ sequenceDiagram
 participant User as User
 participant WebApp as Web Application
 participant IdP as Identity Provider
-participant XSUAA as SAP BTP Authentication
+participant XSUAA as SAP BTP Authentication (XSUAA)
 participant BTPApp as SAP BTP Application
 %% arrows
 loop Setup
