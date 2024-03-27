@@ -1,0 +1,20 @@
+###
+GET {{$dotenv flash_api}}/bff/user
+Cookie: {{$dotenv flash_cookie}}
+X-Csrf: 1
+###
+# @name getAccessToken
+GET {{$dotenv flash_api}}/api/token/bearer
+Cookie: {{$dotenv flash_cookie}}
+X-Csrf: 1
+###
+@accessToken={{getAccessToken.response.body.$.accessToken}}
+@refreshToken={{getAccessToken.response.body.$.refreshToken}}
+### Get Access Token from SAP Identity Authentication Service (IAS)
+# @name requestAccessTokenIAS
+POST {{$dotenv ias_base_url}}/oauth2/token
+Authorization: Basic {{$dotenv flash_ias_client_id}}:{{$dotenv flash_ias_client_secret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{accessToken}}
