@@ -10,6 +10,14 @@ X-Csrf: 1
 ###
 @accessToken={{getAccessToken.response.body.$.accessToken}}
 @refreshToken={{getAccessToken.response.body.$.refreshToken}}
+###
+# @name getIdToken
+GET {{$dotenv flash_api}}/api/token/id_token
+Cookie: {{$dotenv flash_cookie}}
+X-Csrf: 1
+###
+@idToken={{getIdToken.response.body.$}}
+
 ### Get Access Token from SAP Identity Authentication Service (IAS)
 # @name requestAccessTokenIAS
 POST {{$dotenv ias_base_url}}/oauth2/token
@@ -17,4 +25,4 @@ Authorization: Basic {{$dotenv flash_ias_client_id}}:{{$dotenv flash_ias_client_
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
-&assertion={{accessToken}}
+&assertion={{idToken}}
