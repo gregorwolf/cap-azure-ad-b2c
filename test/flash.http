@@ -18,6 +18,15 @@ X-Csrf: 1
 ###
 @idToken={{getIdToken.response.body.$}}
 
+### Get Token from Flash IdP
+# @name requestTokenFlashIdP
+POST {{$dotenv flash_idp_token_url}}
+Authorization: Basic {{$dotenv flash_idp_client_id}}:{{$dotenv flash_idp_client_secret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{idToken}}
+
 ### Get Access Token from SAP Identity Authentication Service (IAS)
 # @name requestAccessTokenIAS
 POST {{$dotenv ias_base_url}}/oauth2/token
