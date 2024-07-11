@@ -39,6 +39,9 @@ assertion={{id_token_ias}}
 ### https://github.com/gregorwolf/ZAPI_USER_NAME
 GET {{$dotenv graph_uri}}/api/{{$dotenv graph_name}}/my.a4h.user/UserDetailsSet
 Authorization: Bearer {{access_token_btp}}
+###
+GET {{$dotenv graph_uri}}/catalog
+Authorization: Bearer {{access_token_btp}}
 ### Call OData Service of Multitenant Application 
 ### https://github.com/gregorwolf/mtxs-bookshop
 ### Read Active
