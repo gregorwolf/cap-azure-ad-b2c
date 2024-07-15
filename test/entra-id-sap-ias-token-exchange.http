@@ -34,6 +34,9 @@ assertion={{id_token_ias}}
 &grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 ### Write response into local variables
 @access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
+###
+GET {{$dotenv graph_uri}}
+Authorization: Bearer {{access_token_btp}}
 ### Calls SAP Graph API to get User Details
 ### Read User Details based on OData Service
 ### https://github.com/gregorwolf/ZAPI_USER_NAME
