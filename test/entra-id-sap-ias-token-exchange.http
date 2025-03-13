@@ -12,7 +12,20 @@ client_id={{$dotenv client_id}}
 &grant_type=password
 ### Write response into local variables
 @access_token={{getUserAccessToken.response.body.$.access_token}}
-@id_token={{getUserAccessToken.response.body.$.id_token}}
+#@id_token={{getUserAccessToken.response.body.$.id_token}}
+@refresh_token={{getUserAccessToken.response.body.$.refresh_token}}
+###
+# @name getUserAccessTokenFromRefreshToken
+POST https://login.microsoftonline.com/{{$dotenv tenant}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{$dotenv client_id}}
+&client_secret={{$dotenv client_secret}}
+&scope=user.read openid profile offline_access
+&refresh_token={{refresh_token}}
+&grant_type=refresh_token
+###
+@id_token={{getUserAccessTokenFromRefreshToken.response.body.$.id_token}}
 ### Get Access Token from SAP Identity Authentication Service (IAS)
 # @name requestAccessTokenIAS
 POST {{$dotenv ias_base_url}}/oauth2/token
