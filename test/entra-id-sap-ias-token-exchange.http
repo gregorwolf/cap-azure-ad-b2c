@@ -26,6 +26,27 @@ client_id={{$dotenv client_id}}
 &grant_type=refresh_token
 ###
 @id_token={{getUserAccessTokenFromRefreshToken.response.body.$.id_token}}
+@access_token={{getUserAccessTokenFromRefreshToken.response.body.$.access_token}}
+### Try to get a SAML Bearer Token from SAP Identity Authentication Service (IAS)
+# @name requestSAMLBearerToken
+POST {{$dotenv ias_base_url}}/oauth2/token
+Authorization: Basic {{$dotenv ias_client_id}}:{{$dotenv ias_client_secret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:token-exchange
+&client_id={{$dotenv ias_client_id}}
+&subject_token={{id_token}}
+&subject_token_type=urn:ietf:params:oauth:token-type:id_token
+#&subject_token={{access_token}}
+#&subject_token_type=urn:ietf:params:oauth:token-type:access_token
+&scope=openid email
+&requested_token_type=urn:ietf:params:oauth:token-type:saml2
+### Currently returns:
+#{
+#  "error": "invalid_client",
+#  "error_description": "Invalid application type"
+#}
+
 ### Get Access Token from SAP Identity Authentication Service (IAS)
 # @name requestAccessTokenIAS
 POST {{$dotenv ias_base_url}}/oauth2/token
