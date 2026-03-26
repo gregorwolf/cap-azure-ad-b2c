@@ -68,7 +68,10 @@ assertion={{id_token_ias}}
 &grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
 ### Write response into local variables
 @access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
-###
+### Call html5userapi_uri
+GET {{$dotenv html5userapi_uri}}/comsapsapmentorshtml5userapiforcfui/api/jwtdecode
+x-approuter-authorization: Bearer {{access_token_btp}}
+### Call SAP Graph API
 GET {{$dotenv graph_uri}}
 Authorization: Bearer {{access_token_btp}}
 ### Calls SAP Graph API to get User Details
