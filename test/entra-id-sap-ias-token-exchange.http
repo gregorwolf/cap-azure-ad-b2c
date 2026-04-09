@@ -64,8 +64,8 @@ POST {{$dotenv ApplicationIDuri}}/oauth/token
 Authorization: Basic {{$dotenv btp_clientid}}:{{$dotenv btp_clientsecret}}
 Content-Type: application/x-www-form-urlencoded
 
-assertion={{id_token_ias}}
-&grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{id_token_ias}}
 ### Write response into local variables
 @access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
 ### Call html5userapi_uri
