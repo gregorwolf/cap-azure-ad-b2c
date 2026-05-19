@@ -1,0 +1,50 @@
+###
+# @name getUserAccessToken
+POST {{$dotenv keycloak_base_url}}/realms/{{$dotenv keycloak_realm}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{$dotenv keycloak_client_id}}
+&client_secret={{$dotenv keycloak_client_secret}}
+&username={{$dotenv keycloak_user}}
+&password={{$dotenv keycloak_password}}
+&grant_type=password
+### Write response into local variables
+@access_token={{getUserAccessToken.response.body.$.access_token}}
+#@id_token={{getUserAccessToken.response.body.$.id_token}}
+@refresh_token={{getUserAccessToken.response.body.$.refresh_token}}
+###
+# @name getUserAccessTokenFromRefreshToken
+POST {{$dotenv keycloak_base_url}}/realms/{{$dotenv keycloak_realm}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{$dotenv keycloak_client_id}}
+&client_secret={{$dotenv keycloak_client_secret}}
+&refresh_token={{refresh_token}}
+&grant_type=refresh_token
+###
+@access_token={{getUserAccessTokenFromRefreshToken.response.body.$.access_token}}
+
+### Get Access Token from SAP Identity Authentication Service (IAS)
+# @name requestAccessTokenIAS
+POST {{$dotenv ias_base_url}}/oauth2/token
+Authorization: Basic {{$dotenv ias_client_id}}:{{$dotenv ias_client_secret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{access_token}}
+### Write response into local variables
+@access_token_ias={{requestAccessTokenIAS.response.body.$.access_token}}
+@id_token_ias={{requestAccessTokenIAS.response.body.$.id_token}}
+### Get Access Token from SAP BTP XSUAA
+# @name requestAccessTokenBTP
+POST {{$dotenv ApplicationIDuri}}/oauth/token
+Authorization: Basic {{$dotenv btp_clientid}}:{{$dotenv btp_clientsecret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{id_token_ias}}
+### Write response into local variables
+@access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
+### Call html5userapi_uri
+GET {{$dotenv html5userapi_uri}}/comsapsapmentorshtml5userapiforcfui/api/jwtdecode
+x-approuter-authorization: Bearer {{access_token_btp}}
