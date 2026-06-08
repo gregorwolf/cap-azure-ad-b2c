@@ -1,0 +1,48 @@
+# Based on the setup described in:
+# https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/samples/msal-node-samples/on-behalf-of/README.md
+
+### Exchange the Entra ID web-app token using the On-Behalf-Of flow 
+### to get a token for the SAP Identity Authentication Service (IAS) 
+# @name getUserAccessToken
+POST https://login.microsoftonline.com/{{$dotenv tenant}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{$dotenv web_api_client_id}}
+&client_secret={{$dotenv web_api_client_secret}}
+&grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{$dotenv web_app_token}}
+&scope={{$dotenv web_api_scope}}
+&requested_token_use=on_behalf_of
+### Write response into local variables
+@access_token={{getUserAccessToken.response.body.$.access_token}}
+#@id_token={{getUserAccessToken.response.body.$.id_token}}
+@refresh_token={{getUserAccessToken.response.body.$.refresh_token}}
+### Test Token against Microsoft Graph API
+# @name testGraphAPI
+GET https://graph.microsoft.com/v1.0/me
+Authorization: Bearer {{access_token}}
+
+### Get Access Token from SAP Identity Authentication Service (IAS)
+# @name requestAccessTokenIAS
+POST {{$dotenv ias_base_url}}/oauth2/token
+Authorization: Basic {{$dotenv ias_client_id}}:{{$dotenv ias_client_secret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{access_token}}
+### Write response into local variables
+@access_token_ias={{requestAccessTokenIAS.response.body.$.access_token}}
+@id_token_ias={{requestAccessTokenIAS.response.body.$.id_token}}
+### Get Access Token from SAP BTP XSUAA
+# @name requestAccessTokenBTP
+POST {{$dotenv ApplicationIDuri}}/oauth/token
+Authorization: Basic {{$dotenv btp_clientid}}:{{$dotenv btp_clientsecret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion={{id_token_ias}}
+### Write response into local variables
+@access_token_btp={{requestAccessTokenBTP.response.body.$.access_token}}
+### Call html5userapi_uri
+GET {{$dotenv html5userapi_uri}}/comsapsapmentorshtml5userapiforcfui/api/jwtdecode
+x-approuter-authorization: Bearer {{access_token_btp}}
